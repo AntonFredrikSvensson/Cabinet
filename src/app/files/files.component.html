@@ -1,0 +1,21 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Thumbnail</th>
+        <th scope="col">File name</th>
+        <th scope="col">Last modified</th>
+        <th scope="col">File size</th>
+        <th scope="col">Platform</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let file of files">
+            <td>{{file.type}}</td>
+            <td>{{file.name}}</td>
+            <td>{{file.lastmodified}}</td>
+            <td>{{file.size}}</td>
+            <td>{{file.platform}}</td>
+        </tr>
+    </tbody>
+  </table>
+  <app-messages></app-messages>
