@@ -5,7 +5,6 @@ import { HttpClientModule }    from '@angular/common/http';
 //temporary in-memory api to lear how to retrieve data from HTTPClients
 import { InMemoryDataService }  from './in-memory-data.service';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import {GoogleApis} from 'googleapis'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +12,7 @@ import { FilesComponent } from './files/files.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ConnectorsComponent } from './connectors/connectors.component';
 import { MessagesComponent } from './messages/messages.component';
-import { GdriveComponent } from './gdrive/gdrive.component'; 
+
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { GdriveComponent } from './gdrive/gdrive.component';
     OverviewComponent,
     ConnectorsComponent,
     MessagesComponent,
-    GdriveComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +32,6 @@ import { GdriveComponent } from './gdrive/gdrive.component';
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
-    GoogleApis,
   ],
   providers: [],
   bootstrap: [AppComponent]
