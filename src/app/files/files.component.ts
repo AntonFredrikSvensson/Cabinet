@@ -26,16 +26,9 @@ export class FilesComponent implements OnInit {
     this.messageService.add(`FileService: Selected file id=${file.id}`);
   }
 
-  // getFiles(): void {
-  //   this.files = this.fileService.getFiles();
-  // }
   getFiles(): void {
     this.fileService.getFiles()
       .subscribe(files => this.files = files)
   }
 
 }
-
-
-// skapa message för att kunna anvnäda vid navigering eller när en fil är markerad
-// https://angular.io/tutorial/toh-pt4#show-messages

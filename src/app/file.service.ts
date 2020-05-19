@@ -30,14 +30,6 @@ export class FileService {
     )
   }
 
-  // /** GET hero by id. Will 404 if id not found */
-  // getFile(id: number): Observable<File> {
-  //   const url = `${this.filesUrl}/${id}`;
-  //   return this.http.get<File>(url).pipe(
-  //     tap(_ => this.log(`fetched file id=${id}`)),
-  //     catchError(this.handleError<File>(`getFile id=${id}`))
-  //   );
-  // }
 
   /**
  * Handle Http operation that failed.

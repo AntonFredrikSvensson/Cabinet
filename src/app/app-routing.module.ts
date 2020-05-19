@@ -9,8 +9,9 @@ const routes: Routes = [
   {path: 'files', component: FilesComponent},
   {path: 'overview', component: OverviewComponent},
   {path: 'connectors', component: ConnectorsComponent},
-  { path: '', redirectTo: '/overview', pathMatch: 'full'},
-  { path: '**', redirectTo: '/overview', pathMatch: 'full'},
+  {path: 'gdrive', component: ConnectorsComponent},
+  { path: '', redirectTo: '/gdrive', pathMatch: 'full'},
+  { path: '**', redirectTo: '/gdrive', pathMatch: 'full'},
 ];
 
 @NgModule({

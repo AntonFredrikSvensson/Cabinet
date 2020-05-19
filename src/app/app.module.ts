@@ -1,15 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule }    from '@angular/common/http';
+
+//temporary in-memory api to lear how to retrieve data from HTTPClients
+import { InMemoryDataService }  from './in-memory-data.service';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import {GoogleApis} from 'googleapis'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FilesComponent } from './files/files.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ConnectorsComponent } from './connectors/connectors.component';
-import { HttpClientModule }    from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
-import { MessagesComponent } from './messages/messages.component'; //temporary in-memory api to lear how to retrieve data from HTTPClients
+import { MessagesComponent } from './messages/messages.component';
+import { GdriveComponent } from './gdrive/gdrive.component'; 
 
 @NgModule({
   declarations: [
@@ -17,7 +21,8 @@ import { MessagesComponent } from './messages/messages.component'; //temporary i
     FilesComponent,
     OverviewComponent,
     ConnectorsComponent,
-    MessagesComponent
+    MessagesComponent,
+    GdriveComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,7 @@ import { MessagesComponent } from './messages/messages.component'; //temporary i
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
+    GoogleApis,
   ],
   providers: [],
   bootstrap: [AppComponent]
