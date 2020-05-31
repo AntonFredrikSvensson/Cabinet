@@ -12,6 +12,7 @@ import { FilesComponent } from './files/files.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ConnectorsComponent } from './connectors/connectors.component';
 import { MessagesComponent } from './messages/messages.component';
+import { StartComponent } from './start/start.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { MessagesComponent } from './messages/messages.component';
     OverviewComponent,
     ConnectorsComponent,
     MessagesComponent,
+    StartComponent,
   ],
   imports: [
     BrowserModule,
