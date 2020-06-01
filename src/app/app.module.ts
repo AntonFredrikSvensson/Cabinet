@@ -13,6 +13,15 @@ import { OverviewComponent } from './overview/overview.component';
 import { ConnectorsComponent } from './connectors/connectors.component';
 import { MessagesComponent } from './messages/messages.component';
 import { StartComponent } from './start/start.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -23,6 +32,8 @@ import { StartComponent } from './start/start.component';
     ConnectorsComponent,
     MessagesComponent,
     StartComponent,
+    SignUpComponent,
+    MainNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +45,13 @@ import { StartComponent } from './start/start.component';
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
+    BrowserAnimationsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
