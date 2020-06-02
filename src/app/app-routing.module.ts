@@ -5,6 +5,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { ConnectorsComponent } from './connectors/connectors.component';
 import { StartComponent } from './start/start.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'connectors', component: ConnectorsComponent},
   {path: 'start', component: StartComponent},
   {path: 'signup', component: SignUpComponent},
+  {path: 'dbxauth', component: DbxAuthComponent},
   { path: '**', redirectTo: '/start', pathMatch: 'full'},
 ];
 
