@@ -1,0 +1,14 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">File Name</th>
+        <th scope="col">File Path</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let file of compEntries">
+            <td>{{file.name}}</td>
+            <td>{{file.path_display}}</td>
+        </tr>
+    </tbody>
+  </table>
