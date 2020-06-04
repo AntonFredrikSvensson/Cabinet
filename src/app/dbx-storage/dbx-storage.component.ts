@@ -32,13 +32,13 @@ export class DbxStorageComponent implements OnInit {
     this.dbxAuthSubscription = this.authService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
-    console.log(this.dbxAuth.accessToken);
+
     this.dbxConnection = new Dropbox({ accessToken: this.dbxAuth.accessToken });
 
     this.activatedRoute.url.subscribe(() => {
       this.currentUrl = UrlMethods.decodeWithoutParams(this.router.url);
       this.filesService.getFiles(this.currentUrl);
-      console.log('Current URL', this.currentUrl);
+      //console.log('Current URL', this.currentUrl);
     });
 
     this.fileStreamSubscription = this.filesService.stream
@@ -50,21 +50,19 @@ export class DbxStorageComponent implements OnInit {
   updateFileStream(inData: Array<any>) {
     this.compEntries = inData;
     this.getData();
-    console.log('Comp Entries')
-    console.log(this.compEntries);
     //this.renderData(this.compEntries);
-    console.log('compEntries: ', this.compEntries);
+    //console.log('compEntries: ', this.compEntries);
   }
 
   getData() {
     this.dbxConnection
       .usersGetSpaceUsage(null)
       .then(spaceInfo => {
-        console.log(spaceInfo);
+        //console.log(spaceInfo);
         this.storageSpace = (spaceInfo.allocation.allocated / 1024 / 1024 / 1024).toFixed(2);
         this.usedSpace = (spaceInfo.used / 1024 / 1024 / 1024).toFixed(2);
         this.spacePercentage = (this.usedSpace / this.storageSpace) * 100;
-        console.log(this.spacePercentage);
+        //console.log(this.spacePercentage);
       })
       .catch(error => {
         console.log(error);

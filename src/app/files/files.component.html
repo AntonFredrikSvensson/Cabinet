@@ -1,1 +1,7 @@
-<app-dbx-storage></app-dbx-storage>
+<div *ngIf="!dbxAuth.isAuth; else elseBlock">
+    <p>No storage connected yet</p>
+    <app-connectors></app-connectors>
+</div>
+<ng-template #elseBlock>
+    <app-dbx-storage></app-dbx-storage>
+</ng-template>

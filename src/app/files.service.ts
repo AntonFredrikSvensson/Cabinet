@@ -31,8 +31,6 @@ export class FilesService {
     this.dbx = new Dropbox({ accessToken: this.dbxAuth.accessToken });
   }
   getFiles(path) {
-    console.log('decodeURI')
-    console.log(decodeURI(path));
     if (path === '/files') {
         path = '';
     }

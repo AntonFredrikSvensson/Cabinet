@@ -1,14 +1,25 @@
 <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">File Name</th>
-        <th scope="col">File Path</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let file of compEntries">
-            <td>{{file.name}}</td>
-            <td>{{file.path_display}}</td>
-        </tr>
-    </tbody>
-  </table>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">File Name</th>
+      <th scope="col">File Path</th>
+      <th scope="col">File Size</th>
+      <th scope="col">Last modified</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let file of compEntries">
+      <td *ngIf="!file.size; else elseBlock">
+        File
+      </td>
+      <ng-template #elseBlock>
+        <td>Folder</td>
+      </ng-template>
+      <td>{{file.name}}</td>
+      <td>{{file.path_display}}</td>
+      <td>{{file.size}}</td>
+      <td>{{file.server_modified}}</td>
+    </tr>
+  </tbody>
+</table>

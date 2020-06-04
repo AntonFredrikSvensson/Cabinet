@@ -3,10 +3,23 @@
     <li>
         <div class="box">
             <i class="fab fa-dropbox fa-3x"></i>
-            <button class="btn btn-primary" type="button" (click)="handleDbxAuthorization()">
+            <button *ngIf="!dbxAuth.isAuth; else elseBlock" class="btn btn-primary" type="button"
+                (click)="handleDbxAuthorization()">
                 Connect to Dropbox
             </button>
+
+            <ng-template #elseBlock>
+                <button class="btn btn-primary" type="button" (click)="disconnectDBX()">
+                    Disconnect from Dropbox
+                </button>
+            </ng-template>
         </div>
+
+        <!-- <div>
+            <button type="button" (click)="handleDbxAuthorization()">Connect to Dropbox</button>
+        </div> -->
+
+
     </li>
     <li>OneDrive</li>
 </ul>
