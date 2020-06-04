@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthObj } from './auth';
 import { LocalStorageMethods } from './utils';
+import { HttpClient } from '@angular/common/http';
+import { dropboxConfig } from './environmentalVariables';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,10 @@ export class DbxAuthService {
   private dbxAuth: AuthObj = { isAuth: false }; // Set initial value isAuth: false
   private objBehaviorSubject: BehaviorSubject<any>;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+  ) {
     this.objBehaviorSubject = new BehaviorSubject(this.dbxAuth);
 
     // Get back saved credentials
@@ -19,6 +24,15 @@ export class DbxAuthService {
     if (savedCredentials) {
       this.storeAuth(savedCredentials);
     }
+  }
+
+
+  connectToDBX(){
+    const urlAuth = `https://www.dropbox.com/oauth2/authorize?`
+    + `client_id=${dropboxConfig.clientId}`
+    + `&redirect_uri=${dropboxConfig.redirectUri}`
+    + `&response_type=${dropboxConfig.responseType}`;
+  window.location.href = urlAuth;
   }
 
   getAuth(): BehaviorSubject<AuthObj> {
@@ -35,5 +49,5 @@ export class DbxAuthService {
     this.dbxAuth = {};
     LocalStorageMethods.clear();
     return this.objBehaviorSubject.next(this.dbxAuth);
-}
+  }
 }

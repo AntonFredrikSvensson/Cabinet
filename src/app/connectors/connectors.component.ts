@@ -3,7 +3,6 @@ import { dropboxConfig } from '../environmentalVariables';
 import { DbxAuthService } from '../dbx-auth.service';
 import { Subscription } from 'rxjs';
 import { AuthObj } from '../auth';
-//import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-connectors',
@@ -14,8 +13,7 @@ export class ConnectorsComponent implements OnInit {
   private dbxAuthSubscription: Subscription;
   public dbxAuth: AuthObj;
 
-  constructor(private authService: DbxAuthService, 
-    //private http: HttpClient, 
+  constructor(private authService: DbxAuthService,  
     ) { }
 
   ngOnInit(): void {
@@ -25,12 +23,7 @@ export class ConnectorsComponent implements OnInit {
   }
 
   handleDbxAuthorization() {
-    const urlAuth = `https://www.dropbox.com/oauth2/authorize?`
-      + `client_id=${dropboxConfig.clientId}`
-      + `&redirect_uri=${dropboxConfig.redirectUri}`
-      + `&response_type=${dropboxConfig.responseType}`;
-    //this.http.get(urlAuth);
-    window.location.href = urlAuth;
+    this.authService.connectToDBX();
   }
 
   disconnectDBX() {
