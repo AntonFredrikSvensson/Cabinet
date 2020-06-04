@@ -30,4 +30,10 @@ export class DbxAuthService {
     LocalStorageMethods.store('dbxCredentials', this.dbxAuth);
     return this.objBehaviorSubject.next(this.dbxAuth);
   }
+
+  clearAuth() {
+    this.dbxAuth = {};
+    LocalStorageMethods.clear();
+    return this.objBehaviorSubject.next(this.dbxAuth);
+}
 }

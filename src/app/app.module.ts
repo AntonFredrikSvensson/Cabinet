@@ -23,6 +23,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
+import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
     SignUpComponent,
     MainNavComponent,
     DbxAuthComponent,
+    DbxStorageComponent,
   ],
   imports: [
     BrowserModule,
