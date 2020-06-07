@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
+import { GdriveAuthComponent } from './gdrive-auth/gdrive-auth.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
     MainNavComponent,
     DbxAuthComponent,
     DbxStorageComponent,
+    GdriveAuthComponent,
   ],
   imports: [
     BrowserModule,

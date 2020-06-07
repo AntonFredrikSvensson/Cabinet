@@ -1,7 +1,10 @@
 <ul>
-    <li>Goodle Drive</li>
+    <li> <button class="btn btn-primary" type="button" (click)="handleGdriveAuthorization()">
+            Connect to Goodle Drive
+        </button>
+    </li>
     <li>
-        <div class="box">
+        <div class=" box">
             <i class="fab fa-dropbox fa-3x"></i>
             <button *ngIf="!dbxAuth.isAuth; else elseBlock" class="btn btn-primary" type="button"
                 (click)="handleDbxAuthorization()">

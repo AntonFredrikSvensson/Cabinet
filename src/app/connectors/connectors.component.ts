@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { dropboxConfig } from '../environmentalVariables';
 import { DbxAuthService } from '../dbx-auth.service';
 import { Subscription } from 'rxjs';
 import { AuthObj } from '../auth';
@@ -13,21 +12,27 @@ export class ConnectorsComponent implements OnInit {
   private dbxAuthSubscription: Subscription;
   public dbxAuth: AuthObj;
 
-  constructor(private authService: DbxAuthService,  
+  constructor(private dbxAuthService: DbxAuthService,  
     ) { }
 
   ngOnInit(): void {
-    this.dbxAuthSubscription = this.authService
+    this.dbxAuthSubscription = this.dbxAuthService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
   }
 
   handleDbxAuthorization() {
-    this.authService.connectToDBX();
+    this.dbxAuthService.connectToDBX();
   }
 
   disconnectDBX() {
-    this.authService.clearAuth();
+    this.dbxAuthService.clearAuth();
+  }
+
+  handleGdriveAuthorization() {
+  }
+
+  disconnectGdrive() {
   }
 
 }

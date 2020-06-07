@@ -6,6 +6,7 @@ import { ConnectorsComponent } from './connectors/connectors.component';
 import { StartComponent } from './start/start.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
+import { GdriveAuthComponent } from './gdrive-auth/gdrive-auth.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'start', component: StartComponent},
   {path: 'signup', component: SignUpComponent},
   {path: 'dbxauth', component: DbxAuthComponent},
+  {path: 'gdriveauth', component: GdriveAuthComponent},
   { path: '**', redirectTo: '/start', pathMatch: 'full'},
 ];
 

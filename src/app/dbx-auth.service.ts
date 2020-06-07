@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthObj } from './auth';
 import { LocalStorageMethods } from './utils';
-import { HttpClient } from '@angular/common/http';
 import { dropboxConfig } from './environmentalVariables';
 
 @Injectable({
@@ -15,7 +14,6 @@ export class DbxAuthService {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
   ) {
     this.objBehaviorSubject = new BehaviorSubject(this.dbxAuth);
 
@@ -32,7 +30,7 @@ export class DbxAuthService {
     + `client_id=${dropboxConfig.clientId}`
     + `&redirect_uri=${dropboxConfig.redirectUri}`
     + `&response_type=${dropboxConfig.responseType}`;
-  window.location.href = urlAuth;
+    window.location.href = urlAuth;
   }
 
   getAuth(): BehaviorSubject<AuthObj> {
