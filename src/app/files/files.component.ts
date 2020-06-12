@@ -14,11 +14,11 @@ export class FilesComponent implements OnInit {
   private dbxAuthSubscription: Subscription;
 
   constructor(
-    private authService: DbxAuthService,
+    private authDbxService: DbxAuthService,
   ) { }
 
   ngOnInit(): void {
-    this.dbxAuthSubscription = this.authService
+    this.dbxAuthSubscription = this.authDbxService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
 

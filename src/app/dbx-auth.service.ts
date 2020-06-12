@@ -13,7 +13,6 @@ export class DbxAuthService {
   private objBehaviorSubject: BehaviorSubject<any>;
 
   constructor(
-    private router: Router,
   ) {
     this.objBehaviorSubject = new BehaviorSubject(this.dbxAuth);
 

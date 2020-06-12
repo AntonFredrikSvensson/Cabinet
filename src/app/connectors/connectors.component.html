@@ -1,28 +1,44 @@
 <ul>
-    <li> <button class="btn btn-primary" type="button" (click)="handleGdriveAuthorization()">
-            Connect to Goodle Drive
-        </button>
+    <li>
+        <!-- <i class=""></i>
+            <button *ngIf="googleAuth.Ut.Bd; else elseBlock" class="btn btn-primary" type="button"
+                (click)="handleGdriveAuthorization()">
+                Connect to Google Drive
+            </button>
+            <ng-template #elseBlock>
+                <button class="btn btn-primary" type="button" (click)="disconnectGdrive()">
+                    Disconnect from Google Drive
+                </button>
+            </ng-template> -->
+        <div class=" box">
+            <i class="fab fa-dropbox fa-3x"></i>
+            <button *ngIf="!googleAuth.isSignedIn.le; else elseBlockGdrive" class="btn btn-primary" type="button"
+                (click)="handleGdriveAuthorization()">
+                Connect to Google Drive
+                
+            </button>
+
+            <ng-template #elseBlockGdrive>
+                <button class="btn btn-primary" type="button" (click)="disconnectGdrive()">
+                    Disconnect from Google Drive
+                </button>
+            </ng-template>
+        </div>
     </li>
     <li>
         <div class=" box">
             <i class="fab fa-dropbox fa-3x"></i>
-            <button *ngIf="!dbxAuth.isAuth; else elseBlock" class="btn btn-primary" type="button"
+            <button *ngIf="!dbxAuth.isAuth; else elseBlockDbx" class="btn btn-primary" type="button"
                 (click)="handleDbxAuthorization()">
                 Connect to Dropbox
             </button>
 
-            <ng-template #elseBlock>
+            <ng-template #elseBlockDbx>
                 <button class="btn btn-primary" type="button" (click)="disconnectDBX()">
                     Disconnect from Dropbox
                 </button>
             </ng-template>
         </div>
-
-        <!-- <div>
-            <button type="button" (click)="handleDbxAuthorization()">Connect to Dropbox</button>
-        </div> -->
-
-
     </li>
     <li>OneDrive</li>
 </ul>

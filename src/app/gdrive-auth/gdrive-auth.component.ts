@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { gDriveConfig } from '../environmentalVariables';
+import { GdriveAuthService } from '../gdrive-auth.service';
 declare var gapi: any;
 
 @Component({
@@ -10,21 +11,18 @@ declare var gapi: any;
 export class GdriveAuthComponent implements OnInit {
   private googleAuth;
 
-  private isAuthorized;
-  private currentApiRequest;
-
-  private user_test;
-
-  constructor() { }
+  constructor(private grdiveAuthService:GdriveAuthService,) { }
 
   ngOnInit(): void {
   }
 
   handleGdriveAuthorization() {
     //console.log('starting auth');
-    this.initClient();
+    //this.initClient();
+    this.grdiveAuthService.connectToGDrive();
   }
-  //cb=gapi.loaded_0:235 GET https://content.googleapis.com/discovery/v1/apis/h/v1/rest?fields=kind%2Cname%2Cversion%2CrootUrl%2CservicePath%2Cresources%2Cparameters%2Cmethods%2CbatchPath%2Cid&pp=0&key=AIzaSyC-bvuLxCw_wJxcM4k_yJKCySnLuPvFliI 404
+
+
 
   initClient() {
     return new Promise((resolve, reject) => {
@@ -32,8 +30,8 @@ export class GdriveAuthComponent implements OnInit {
         return gapi.client.init({
           apiKey: gDriveConfig.apiKey,
           clientId: gDriveConfig.clientId,
-          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-          scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+          discoveryDocs: gDriveConfig.discoveryDocs,
+          scope: gDriveConfig.scope,
         }).then(() => {
           this.googleAuth = gapi.auth2.getAuthInstance();
           resolve();
