@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
@@ -22,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
+import { firebaseConfig } from './environmentalVariables';
 
 
 @NgModule({
@@ -47,6 +50,9 @@ import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
