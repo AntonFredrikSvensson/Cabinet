@@ -24,30 +24,31 @@ export class DbxAuthComponent implements OnInit {
 
     if (!this.dbxAuth.isAuth) {
       const authUrl = this.router.url;
+      // console.log(authUrl);
       const parameters = authUrl.split('#')[1] || '';
-      //console.log(parameters);
+      // console.log(parameters);
       if (parameters.length > 0) {
         const arrParams = parameters.split('&') || [];
-        //console.log(arrParams);
+        // console.log(arrParams);
         if (arrParams.length > 0) {
           const tempAuth: AuthObj = { isAuth: false };
           for (let i = 0; i < arrParams.length; i++) {
             const arrItem = arrParams[i].split('=');
             switch (arrItem[0]) {
               case 'access_token':
-                //console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.accessToken = arrItem[1];
                 break;
               case 'token_type':
-                //console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.tokenType = arrItem[1];
                 break;
               case 'uid':
-                //console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.uid = arrItem[1];
                 break;
               case 'account_id':
-                //console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.accountId = arrItem[1];
                 break;
               default:
