@@ -9,17 +9,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let file of compEntries">
-      <td *ngIf="!file.size; else elseBlock">
+    <tr *ngFor="let file of filesArray">
+      <td *ngIf="file.size; else elseBlock">
         File
       </td>
       <ng-template #elseBlock>
         <td>Folder</td>
       </ng-template>
       <td>{{file.name}}</td>
-      <td>{{file.path_display}}</td>
+      <td>{{file.path}}</td>
       <td>{{file.size}}</td>
-      <td>{{file.server_modified}}</td>
+      <td>{{file.last_modified}}</td>
     </tr>
   </tbody>
 </table>

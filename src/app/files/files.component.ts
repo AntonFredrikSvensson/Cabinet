@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DbxAuthService } from '../dbx-auth.service';
 import { AuthObj } from '../auth';
 import { Subscription } from 'rxjs';
+import { FilesService } from '../files.service';
 
 @Component({
   selector: 'app-files',
@@ -21,6 +22,8 @@ export class FilesComponent implements OnInit {
     this.dbxAuthSubscription = this.authService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
+
+
 
   }
 

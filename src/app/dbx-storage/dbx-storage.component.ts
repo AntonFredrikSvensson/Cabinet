@@ -6,6 +6,7 @@ import { Dropbox } from 'dropbox';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilesService } from '../files.service';
 import { UrlMethods } from '../utils';
+import { File } from '../file';
 
 @Component({
   selector: 'app-dbx-storage',
@@ -22,6 +23,7 @@ export class DbxStorageComponent implements OnInit {
   public storageSpace;
   public usedSpace;
   public spacePercentage;
+  public filesArray:Array<File> = [];
 
   constructor(private authService: DbxAuthService,
     private activatedRoute: ActivatedRoute,
@@ -42,9 +44,14 @@ export class DbxStorageComponent implements OnInit {
     });
 
     this.fileStreamSubscription = this.filesService.stream
-      .subscribe((entries) => {
-        this.updateFileStream(entries);
+      .subscribe((file) => {
+        this.addFileToArray(file);
+
       });
+  }
+
+  addFileToArray(file){
+    this.filesArray.push(file);
   }
 
   updateFileStream(inData: Array<any>) {
