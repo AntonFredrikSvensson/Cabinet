@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "cabinet-f288a": {
+      "hosting": {
+        "cabinet": [
+          "cabinet-f288a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "cabinet-f288a"
+  }
+}
