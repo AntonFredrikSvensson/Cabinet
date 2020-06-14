@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'start', component: StartComponent},
   {path: 'signup', component: SignUpComponent},
   {path: 'dbxauth', component: DbxAuthComponent},
-  { path: '**', redirectTo: '/start', pathMatch: 'full'},
+  { path: '**', redirectTo: '/files', pathMatch: 'full'},
 ];
 
 @NgModule({

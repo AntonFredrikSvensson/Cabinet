@@ -40,7 +40,7 @@ export class DbxStorageComponent implements OnInit {
     this.activatedRoute.url.subscribe(() => {
       this.currentUrl = UrlMethods.decodeWithoutParams(this.router.url);
       this.filesService.getFiles(this.currentUrl);
-      //console.log('Current URL', this.currentUrl);
+      console.log('Current URL', this.currentUrl);
     });
 
     this.fileStreamSubscription = this.filesService.stream
