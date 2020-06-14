@@ -48,6 +48,7 @@ export class FilesService {
   entriesToFiles(entries) {
     entries.forEach(element => {
       const dbxFile:File = {
+        type:element['.tag'],
         name:element.name,
         path:element.path_display,
         size:element.size,
@@ -55,8 +56,9 @@ export class FilesService {
         id:element.id,
       }
       this.stream.next(dbxFile);
-      console.log(element);
-      console.log(dbxFile);
+      // console.log(element);
+      // console.log(element['.tag']);
+      // console.log(dbxFile);
     });
   }
 }

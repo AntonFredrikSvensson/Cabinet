@@ -10,12 +10,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let file of filesArray">
-      <td *ngIf="file.size; else elseBlock">
-        File
-      </td>
-      <ng-template #elseBlock>
-        <td>Folder</td>
-      </ng-template>
+      <td>{{file.type}}</td>
       <td>{{file.name}}</td>
       <td>{{file.path}}</td>
       <td>{{file.size}}</td>

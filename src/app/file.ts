@@ -1,5 +1,5 @@
 export interface File{
-    // type:string;
+    type:string;
     name:string;
     path:string;
     size?:number;
