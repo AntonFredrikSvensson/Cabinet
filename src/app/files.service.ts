@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Dropbox } from 'dropbox';
 import { Router, Routes } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +17,7 @@ import { identifierModuleUrl } from '@angular/compiler';
 export class FilesService {
   private dbxAuth: AuthObj;
   private subscription: Subscription;
-  stream;
+  public stream:Subject<File>;
   dbx;
 
   constructor(
@@ -28,22 +28,17 @@ export class FilesService {
     this.subscription = this.authService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
-
-    this.stream = new BehaviorSubject([]);
+    this.stream = new Subject<File>();
     this.dbx = new Dropbox({ accessToken: this.dbxAuth.accessToken });
   }
   getFiles(path) {
-    if (path === '/files') {
-      path = '';
-    }
+    path = path.substring(6);
+    console.log(path);
     this.dbx.filesListFolder({ path: decodeURI(path) })
       .then(response => {
         const entries = response.entries;
-        // this.stream.next(entries);
         this.entriesToFiles(entries);
       });
-
-
   }
   entriesToFiles(entries) {
     entries.forEach(element => {
@@ -54,11 +49,9 @@ export class FilesService {
         size:element.size,
         last_modified:element.server_modified,
         id:element.id,
+        storageProvider:'Dropbox',
       }
-      this.stream.next(dbxFile);
-      // console.log(element);
-      // console.log(element['.tag']);
-      // console.log(dbxFile);
+      this.stream.next(dbxFile); 
     });
   }
 }

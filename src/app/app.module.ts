@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
 import { firebaseConfig } from './environmentalVariables';
+import { FolderComponent } from './folder/folder.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { firebaseConfig } from './environmentalVariables';
     MainNavComponent,
     DbxAuthComponent,
     DbxStorageComponent,
+    FolderComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,4 +5,5 @@ export interface File{
     size?:number;
     last_modified?:string; //datetime?
     id:string;
+    storageProvider:string;
 }
