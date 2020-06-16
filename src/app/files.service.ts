@@ -33,7 +33,7 @@ export class FilesService {
   }
   getFiles(path) {
     path = path.substring(6);
-    console.log(path);
+    // console.log(path);
     this.dbx.filesListFolder({ path: decodeURI(path) })
       .then(response => {
         const entries = response.entries;

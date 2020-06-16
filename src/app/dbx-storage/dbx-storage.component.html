@@ -13,7 +13,7 @@
       <ng-template *ngIf="file.type === 'folder';then thenBlock; else elseBlock"></ng-template>
       <ng-template #thenBlock>
         <td>
-          <a routerLink="/files/{{file.path}}" routerLinkActive="active">{{file.type}}</a>
+          <a (click)= "clearFilesArray()" routerLink="/files/{{file.path}}" routerLinkActive="active">{{file.type}}</a>
         </td>
       </ng-template>
       <ng-template #elseBlock>

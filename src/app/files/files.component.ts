@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DbxAuthService } from '../dbx-auth.service';
 import { AuthObj } from '../auth';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { FilesService } from '../files.service';
   templateUrl: './files.component.html',
   styleUrls: ['./files.component.css']
 })
-export class FilesComponent implements OnInit {
+export class FilesComponent implements OnInit, OnDestroy {
 
   public dbxAuth: AuthObj;
   private dbxAuthSubscription: Subscription;
@@ -22,9 +22,10 @@ export class FilesComponent implements OnInit {
     this.dbxAuthSubscription = this.authService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
+  }
 
-
-
+  ngOnDestroy(): void {
+    this.dbxAuthSubscription.unsubscribe();
   }
 
 }
