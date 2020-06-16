@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthObj } from '../auth';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { DbxAuthService } from '../dbx-auth.service';
   templateUrl: './dbx-auth.component.html',
   styleUrls: ['./dbx-auth.component.css']
 })
-export class DbxAuthComponent implements OnInit {
+export class DbxAuthComponent implements OnInit, OnDestroy {
 
   public dbxAuth: AuthObj;
   private subscription: Subscription;
@@ -80,5 +80,8 @@ export class DbxAuthComponent implements OnInit {
     }
 
 
+  }
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 }

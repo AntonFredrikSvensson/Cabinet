@@ -6,7 +6,6 @@ import { ConnectorsComponent } from './connectors/connectors.component';
 import { StartComponent } from './start/start.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
-import { FolderComponent } from './folder/folder.component';
 
 
 const routes: Routes = [

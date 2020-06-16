@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { dropboxConfig } from '../environmentalVariables';
 import { DbxAuthService } from '../dbx-auth.service';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { AuthObj } from '../auth';
   templateUrl: './connectors.component.html',
   styleUrls: ['./connectors.component.css']
 })
-export class ConnectorsComponent implements OnInit {
+export class ConnectorsComponent implements OnInit, OnDestroy  {
   private dbxAuthSubscription: Subscription;
   public dbxAuth: AuthObj;
 
@@ -20,6 +20,10 @@ export class ConnectorsComponent implements OnInit {
     this.dbxAuthSubscription = this.authService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
+  }
+
+  ngOnDestroy(): void{
+    this.dbxAuthSubscription.unsubscribe();
   }
 
   handleDbxAuthorization() {
