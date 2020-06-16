@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { DbxAuthService } from '../dbx-auth.service';
 import { Subscription } from 'rxjs';
 import { AuthObj } from '../auth';
@@ -13,14 +13,14 @@ import { File } from '../file';
   templateUrl: './dbx-storage.component.html',
   styleUrls: ['./dbx-storage.component.css']
 })
-export class DbxStorageComponent implements OnInit, OnDestroy {
+export class DbxStorageComponent implements OnInit, OnDestroy, OnChanges {
   private dbxAuthSubscription: Subscription;
   private dbxAuth: AuthObj;
   private dbxConnection;
   private currentUrl = '';
   private fileStreamSubscription: Subscription;
   public compEntries: Array<any> = [];
-  public filesArray:Array<File> = [];
+  public filesArray:Array<File>;
 
   constructor(private authService: DbxAuthService,
     private activatedRoute: ActivatedRoute,
@@ -28,6 +28,8 @@ export class DbxStorageComponent implements OnInit, OnDestroy {
     private filesService: FilesService, ) { }
 
   ngOnInit(): void {
+    this.filesArray = [];
+
     this.dbxAuthSubscription = this.authService
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
@@ -47,13 +49,23 @@ export class DbxStorageComponent implements OnInit, OnDestroy {
 
   }
 
+
+
+  addFileToArray(file){
+    this.filesArray.push(file);
+  }
+
+  clearFilesArray(): void {
+    this.filesArray = [];
+  }
+  
   ngOnDestroy():  void{
     this.fileStreamSubscription.unsubscribe();
     this.dbxAuthSubscription.unsubscribe();
   }
 
-  addFileToArray(file){
-    this.filesArray.push(file);
+  ngOnChanges(changes:SimpleChanges) {
+    console.log('changes: ' + changes);
   }
 
 }

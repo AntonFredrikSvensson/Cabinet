@@ -9,19 +9,13 @@ import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 
 
 const routes: Routes = [
-  {path: 'overview', component: OverviewComponent},
-  {path: 'connectors', component: ConnectorsComponent},
-  {path: 'start', component: StartComponent},
-  {path: 'signup', component: SignUpComponent},
-  {path: 'dbxauth', component: DbxAuthComponent},
-  {path: 'files', component: FilesComponent},
-  {
-    // path: 'files/:path',
-    path:'**',
-    // canActivate: [ProductDetailGuard],
-    component: FilesComponent,
-  },
-  { path: '**', redirectTo: '/files', pathMatch: 'full'},
+  { path: 'overview', component: OverviewComponent },
+  { path: 'connectors', component: ConnectorsComponent },
+  { path: 'start', component: StartComponent },
+  { path: 'signup', component: SignUpComponent },
+  { path: 'dbxauth', component: DbxAuthComponent },
+  { path: 'files', component: FilesComponent },
+  { path: '**', component: FilesComponent, },
 ];
 
 @NgModule({
