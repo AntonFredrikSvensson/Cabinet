@@ -20,12 +20,14 @@ export class DbxStorageComponent implements OnInit, OnDestroy, OnChanges {
   private currentUrl = '';
   private fileStreamSubscription: Subscription;
   public compEntries: Array<any> = [];
-  public filesArray:Array<File>;
+  public filesArray: Array<File>;
 
-  constructor(private authService: DbxAuthService,
+  constructor(
+    private authService: DbxAuthService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private filesService: FilesService, ) { }
+    private filesService: FilesService,
+    ) { }
 
   ngOnInit(): void {
     this.filesArray = [];
@@ -51,20 +53,20 @@ export class DbxStorageComponent implements OnInit, OnDestroy, OnChanges {
 
 
 
-  addFileToArray(file){
+  addFileToArray(file) {
     this.filesArray.push(file);
   }
 
   clearFilesArray(): void {
     this.filesArray = [];
   }
-  
-  ngOnDestroy():  void{
+
+  ngOnDestroy(): void {
     this.fileStreamSubscription.unsubscribe();
     this.dbxAuthSubscription.unsubscribe();
   }
 
-  ngOnChanges(changes:SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges) {
     console.log('changes: ' + changes);
   }
 

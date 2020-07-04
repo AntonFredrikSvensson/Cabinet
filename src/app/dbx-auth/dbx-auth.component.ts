@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthObj } from '../auth';
 import { Subscription } from 'rxjs';
@@ -14,13 +14,13 @@ export class DbxAuthComponent implements OnInit, OnDestroy {
   public dbxAuth: AuthObj;
   private subscription: Subscription;
 
-  constructor(private authService: DbxAuthService,private router: Router) { }
+  constructor(private authService: DbxAuthService, private router: Router) { }
 
   ngOnInit(): void {
 
     // Get credentials from service and keep data updated
     this.subscription = this.authService.getAuth()
-    .subscribe((auth) => this.dbxAuth = auth);
+      .subscribe((auth) => this.dbxAuth = auth);
 
     if (!this.dbxAuth.isAuth) {
       const authUrl = this.router.url;
@@ -81,7 +81,7 @@ export class DbxAuthComponent implements OnInit, OnDestroy {
 
 
   }
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }

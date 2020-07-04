@@ -1,14 +1,28 @@
 <ul>
-    <li>Goodle Drive</li>
     <li>
         <div class="box">
             <i class="fab fa-dropbox fa-3x"></i>
-            <button *ngIf="!dbxAuth.isAuth; else elseBlock" class="btn btn-primary" type="button"
+            <button *ngIf="!gDriveIsAuth; else elseGdrBlock" class="btn btn-primary" type="button"
+                (click)="handleGdrAuthorization()">
+                Connect to Google Drive
+            </button>
+
+            <ng-template #elseGdrBlock>
+                <button class="btn btn-primary" type="button" (click)="handleGdrAuthorization()">
+                    Disconnect from Google Drive
+                </button>
+            </ng-template>
+        </div>
+    </li>
+    <li>
+        <div class="box">
+            <i class="fab fa-dropbox fa-3x"></i>
+            <button *ngIf="!dbxAuth.isAuth; else elseDbxBlock" class="btn btn-primary" type="button"
                 (click)="handleDbxAuthorization()">
                 Connect to Dropbox
             </button>
 
-            <ng-template #elseBlock>
+            <ng-template #elseDbxBlock>
                 <button class="btn btn-primary" type="button" (click)="disconnectDBX()">
                     Disconnect from Dropbox
                 </button>

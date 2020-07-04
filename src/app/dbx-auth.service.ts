@@ -27,12 +27,12 @@ export class DbxAuthService {
   }
 
 
-  connectToDBX(){
+  connectToDBX() {
     const urlAuth = `https://www.dropbox.com/oauth2/authorize?`
-    + `client_id=${dropboxConfig.clientId}`
-    + `&redirect_uri=${dropboxConfig.redirectUri}`
-    + `&response_type=${dropboxConfig.responseType}`;
-  window.location.href = urlAuth;
+      + `client_id=${dropboxConfig.clientId}`
+      + `&redirect_uri=${dropboxConfig.redirectUri}`
+      + `&response_type=${dropboxConfig.responseType}`;
+    window.location.href = urlAuth;
   }
 
   getAuth(): BehaviorSubject<AuthObj> {
