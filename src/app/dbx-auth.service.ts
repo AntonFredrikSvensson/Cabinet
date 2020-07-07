@@ -42,6 +42,7 @@ export class DbxAuthService {
   storeAuth(inDbxAuth: AuthObj) {
     this.dbxAuth = inDbxAuth;
     LocalStorageMethods.store('dbxCredentials', this.dbxAuth);
+    console.log('storeAuth isAuth: ' +  this.dbxAuth.isAuth);
     return this.objBehaviorSubject.next(this.dbxAuth);
   }
 

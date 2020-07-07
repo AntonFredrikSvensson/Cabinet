@@ -32,6 +32,7 @@ export class DbxAuthComponent implements OnInit, OnDestroy {
         // console.log(arrParams);
         if (arrParams.length > 0) {
           const tempAuth: AuthObj = { isAuth: false };
+          // tslint:disable-next-line: prefer-for-of
           for (let i = 0; i < arrParams.length; i++) {
             const arrItem = arrParams[i].split('=');
             switch (arrItem[0]) {

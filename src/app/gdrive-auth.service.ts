@@ -1,7 +1,7 @@
 import { AuthObj } from './auth';
 import { Injectable } from '@angular/core';
 import { gDriveConfig } from './environmentalVariables';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LocalStorageMethods } from './utils';
 declare var gapi: any;
 
@@ -9,36 +9,35 @@ declare var gapi: any;
   providedIn: 'root'
 })
 export class GdriveAuthService {
-  private gdrAuth: AuthObj = { isAuth: false }; // Set initial value isAuth: false
+  private gdrIsAuth: AuthObj = { isAuth: false }; // Set initial value isAuth: false
   private googleAuth: any;
   private googleUser: any;
   private authObjBehaviorSubject: BehaviorSubject<any>;
-  private gDriveIsAuth = false;
-  private isAuthBehaviorSubject: BehaviorSubject<boolean>;
+  private isAuthBehaviorSubject: BehaviorSubject<AuthObj>;
 
   constructor() {
 
-    // this.authObjBehaviorSubject = new BehaviorSubject(this.googleAuth);
-    this.authObjBehaviorSubject = new BehaviorSubject(this.gdrAuth);
-    this.isAuthBehaviorSubject = new BehaviorSubject(this.gDriveIsAuth);
+    this.authObjBehaviorSubject = new BehaviorSubject(this.googleAuth);
+    this.isAuthBehaviorSubject = new BehaviorSubject(this.gdrIsAuth);
 
     // Get back saved auth credentials
-    const authSavedCredentials: any = LocalStorageMethods.retrieve('authGdriveCredentials');
+    const authSavedCredentials: any = LocalStorageMethods.retrieve('gdrIsAuth');
     if (authSavedCredentials) {
-      this.storeAuth(authSavedCredentials);
+      this.storeIsAuth(authSavedCredentials);
+    }else{
+      // console.log('constructor: no auth credentials to load');
     }
   }
 
-  connectToGDrive(): any {
-    this.initClient()
-      .then(() => this.signIn())
-      .then(() => {
-        // this.storeUser(this.googleUser);
-        this.storeAuth(this.googleAuth);
-        console.log('--- Store Auth, google user ---');
-        console.log(this.googleUser);
-        return this.googleAuth;
-      });
+  connectToGDrive(): void {
+    if (!this.gdrIsAuth.isAuth) {
+      this.initClient()
+        .then(() => this.signIn());
+    } else {
+      console.log('already connected to gdrive');
+
+    }
+
   }
 
   initClient() {
@@ -52,7 +51,7 @@ export class GdriveAuthService {
         }).then(() => {
           this.googleAuth = gapi.auth2.getAuthInstance();
           resolve();
-          console.log('---Google Auth---');
+          console.log('---InitClient Google Auth---');
           console.log(this.googleAuth);
         });
       });
@@ -68,56 +67,54 @@ export class GdriveAuthService {
       // console.log('---Google User---');
       // console.log(res);
       this.googleUser = res;
-
-      this.storeAuth(this.googleAuth);
-
       console.log(this.googleUser);
-      console.log('--- Google Auth---');
+      console.log('--- sign in Google Auth---');
       console.log(this.googleAuth);
+      // this.storeAuth(this.googleAuth);
       // console.log(this.googleAuth.isSignedIn());
     }).then(() => {
-      this.gdrAuth.isAuth = this.googleAuth.isSignedIn.get();
-      console.log('---gdr auth isAuth---');
-      console.log(this.gdrAuth.isAuth);
-      this.storeAuth(this.gdrAuth);
+      this.gdrIsAuth.isAuth = this.googleAuth.isSignedIn.get();
+      console.log('---gdrIsAuth.isAuth---');
+      console.log(this.gdrIsAuth.isAuth);
+      this.storeIsAuth(this.gdrIsAuth);
+      this.storeAuth(this.googleAuth);
     });
+  }
+
+  getIsAuth(): BehaviorSubject<any> {
+    return this.isAuthBehaviorSubject;
+  }
+
+  storeIsAuth(inGdriveAuth: any) {
+    this.gdrIsAuth = inGdriveAuth;
+    LocalStorageMethods.store('gdrIsAuth', this.gdrIsAuth);
+    console.log('storeIsAuth isAuth: ' +  this.gdrIsAuth.isAuth);
+    return this.isAuthBehaviorSubject.next(this.gdrIsAuth);
   }
 
   getAuth(): BehaviorSubject<any> {
     return this.authObjBehaviorSubject;
   }
 
-  isAuth(): BehaviorSubject<boolean> {
-    return this.isAuthBehaviorSubject;
-  }
-
-  isAuthChange(): void{
-    if (!this.gDriveIsAuth){
-      console.log('isAuthChange false->true');
-      this.gDriveIsAuth = true;
-      console.log(this.gDriveIsAuth);
-    }else{
-      console.log('isAuthChange ture->false');
-      this.gDriveIsAuth = false;
-    }
-    return this.isAuthBehaviorSubject.next(this.gDriveIsAuth);
-  }
-
   storeAuth(inGdriveAuth: any) {
-    this.gdrAuth = inGdriveAuth;
-    LocalStorageMethods.store('authGdriveCredentials', this.gdrAuth);
-    return this.authObjBehaviorSubject.next(this.gdrAuth);
-    // this.googleAuth = inGdriveAuth;
-    // LocalStorageMethods.store('authGdriveCredentials', this.googleAuth);
-    // return this.authObjBehaviorSubject.next(this.googleAuth);
+    this.googleAuth = inGdriveAuth;
+    LocalStorageMethods.store('googleAuthObj', this.googleAuth);
+    console.log('store Auth googleAuth:');
+    console.log(this.googleAuth);
+    return this.authObjBehaviorSubject.next(this.googleAuth);
   }
 
   clearAuth() {
+    console.log('clear auth');
+    if (typeof(this.googleAuth) !== 'undefined'){
     this.googleAuth.signOut()
       .then(() => {
         LocalStorageMethods.clear();
-        return this.authObjBehaviorSubject.next(this.googleAuth);
+        return this.isAuthBehaviorSubject.next(this.gdrIsAuth);
       });
+    }else{
+      LocalStorageMethods.clear();
+    }
   }
 
 

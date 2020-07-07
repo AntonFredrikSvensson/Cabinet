@@ -13,10 +13,11 @@ import { AuthObj } from '../auth';
 export class ConnectorsComponent implements OnInit, OnDestroy {
   private dbxAuthSubscription: Subscription;
   public dbxAuth: AuthObj;
-  private gdriveAuthSubscription: Subscription;
-  public gDriveAuth: AuthObj;
   private gdriveIsAuthSubscription: Subscription;
-  public gDriveIsAuth: boolean;
+  public gDriveIsAuth: AuthObj;
+  private gdriveAuthObjSubscription: Subscription;
+  public googleAuthObj: any;
+
 
   constructor(
     private authDbxService: DbxAuthService,
@@ -28,18 +29,18 @@ export class ConnectorsComponent implements OnInit, OnDestroy {
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
 
-    this.gdriveAuthSubscription = this.authGdriveService
-      .getAuth()
-      .subscribe(auth => (this.gDriveAuth = auth));
-
     this.gdriveIsAuthSubscription = this.authGdriveService
-      .isAuth()
+      .getIsAuth()
       .subscribe(auth => (this.gDriveIsAuth = auth));
 
+    this.gdriveAuthObjSubscription = this.authGdriveService
+      .getAuth()
+      .subscribe(auth => (this.googleAuthObj = auth));
   }
 
   ngOnDestroy(): void {
     this.dbxAuthSubscription.unsubscribe();
+    this.gdriveIsAuthSubscription.unsubscribe();
   }
 
   handleDbxAuthorization() {
@@ -51,9 +52,7 @@ export class ConnectorsComponent implements OnInit, OnDestroy {
   }
 
   handleGdrAuthorization() {
-    // this.authGdriveService.connectToGDrive();
-    this.authGdriveService.isAuthChange();
-    console.log(this.gDriveIsAuth);
+    this.authGdriveService.connectToGDrive();
   }
 
   disconnectGDR() {

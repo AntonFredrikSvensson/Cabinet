@@ -2,13 +2,13 @@
     <li>
         <div class="box">
             <i class="fab fa-dropbox fa-3x"></i>
-            <button *ngIf="!gDriveIsAuth; else elseGdrBlock" class="btn btn-primary" type="button"
+            <button *ngIf="!gDriveIsAuth.isAuth; else elseGdrBlock" class="btn btn-primary" type="button"
                 (click)="handleGdrAuthorization()">
                 Connect to Google Drive
             </button>
 
             <ng-template #elseGdrBlock>
-                <button class="btn btn-primary" type="button" (click)="handleGdrAuthorization()">
+                <button class="btn btn-primary" type="button" (click)="disconnectGDR()">
                     Disconnect from Google Drive
                 </button>
             </ng-template>
@@ -37,3 +37,5 @@
     </li>
     <li>OneDrive</li>
 </ul>
+
+<p>{{gDriveIsAuth.isAuth}}</p>
