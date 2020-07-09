@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -25,6 +25,8 @@ import { MatListModule } from '@angular/material/list';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
 import { firebaseConfig } from './environmentalVariables';
+import { GdriveStorageComponent } from './gdrive-storage/gdrive-storage.component';
+import { GdrAuthComponent } from './gdr-auth/gdr-auth.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { firebaseConfig } from './environmentalVariables';
     MainNavComponent,
     DbxAuthComponent,
     DbxStorageComponent,
+    GdriveStorageComponent,
+    GdrAuthComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<div *ngIf="!dbxAuth.isAuth; else elseBlock">
+<div *ngIf="!dbxAuth.isAuth && !gdrAuth.isAuth; else elseBlock">
     <p>No storage connected yet</p>
     <app-connectors></app-connectors>
 </div>

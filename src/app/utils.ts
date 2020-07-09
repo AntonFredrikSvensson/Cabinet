@@ -1,7 +1,9 @@
 export const LocalStorageMethods = {
     store(key, value) {
+        console.log('local storage store...');
         try {
             if (typeof(Storage) !== 'undefined') {
+                console.log('storage set: ' + key);
                 localStorage.setItem(key, JSON.stringify(value));
                 return true;
             } else {
@@ -15,6 +17,7 @@ export const LocalStorageMethods = {
         try {
             if (typeof(Storage) !== 'undefined') {
                 if (localStorage.getItem(key)) {
+                    console.log('storage get: ' + key);
                     return JSON.parse(localStorage.getItem(key));
                 } else {
                     return null;
