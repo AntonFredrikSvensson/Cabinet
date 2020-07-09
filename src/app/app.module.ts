@@ -26,6 +26,7 @@ import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
 import { firebaseConfig } from './environmentalVariables';
 import { GdriveStorageComponent } from './gdrive-storage/gdrive-storage.component';
+import { GdrAuthComponent } from './gdr-auth/gdr-auth.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { GdriveStorageComponent } from './gdrive-storage/gdrive-storage.componen
     DbxAuthComponent,
     DbxStorageComponent,
     GdriveStorageComponent,
+    GdrAuthComponent,
   ],
   imports: [
     BrowserModule,

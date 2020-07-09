@@ -14,7 +14,10 @@ export class DbxAuthComponent implements OnInit, OnDestroy {
   public dbxAuth: AuthObj;
   private subscription: Subscription;
 
-  constructor(private authService: DbxAuthService, private router: Router) { }
+  constructor(
+    private authService: DbxAuthService,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
 

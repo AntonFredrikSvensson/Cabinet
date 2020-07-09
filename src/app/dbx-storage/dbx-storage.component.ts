@@ -40,7 +40,7 @@ export class DbxStorageComponent implements OnInit, OnDestroy, OnChanges {
 
     this.activatedRoute.url.subscribe(() => {
       this.currentUrl = UrlMethods.decodeWithoutParams(this.router.url);
-      this.filesService.getFiles(this.currentUrl);
+      this.filesService.getDbxFiles(this.currentUrl);
       // console.log('Current URL', this.currentUrl);
     });
 

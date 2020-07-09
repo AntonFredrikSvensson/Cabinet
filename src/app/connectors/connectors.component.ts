@@ -15,8 +15,8 @@ export class ConnectorsComponent implements OnInit, OnDestroy {
   public dbxAuth: AuthObj;
   private gdriveIsAuthSubscription: Subscription;
   public gDriveIsAuth: AuthObj;
-  private gdriveAuthObjSubscription: Subscription;
-  public googleAuthObj: any;
+  private gdriveAuthSubscription: Subscription;
+  public gdriveAuth: AuthObj;
 
 
   constructor(
@@ -29,13 +29,13 @@ export class ConnectorsComponent implements OnInit, OnDestroy {
       .getAuth()
       .subscribe(auth => (this.dbxAuth = auth));
 
-    this.gdriveIsAuthSubscription = this.authGdriveService
-      .getIsAuth()
-      .subscribe(auth => (this.gDriveIsAuth = auth));
+    // this.gdriveIsAuthSubscription = this.authGdriveService
+    //   .getIsAuth()
+    //   .subscribe(auth => (this.gDriveIsAuth = auth));
 
-    this.gdriveAuthObjSubscription = this.authGdriveService
+    this.gdriveAuthSubscription = this.authGdriveService
       .getAuth()
-      .subscribe(auth => (this.googleAuthObj = auth));
+      .subscribe(auth => (this.gdriveAuth = auth));
   }
 
   ngOnDestroy(): void {

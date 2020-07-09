@@ -31,16 +31,16 @@ export class FilesService {
     this.stream = new Subject<File>();
     this.dbx = new Dropbox({ accessToken: this.dbxAuth.accessToken });
   }
-  getFiles(path) {
+  getDbxFiles(path) {
     path = path.substring(6);
     // console.log(path);
     this.dbx.filesListFolder({ path: decodeURI(path) })
       .then(response => {
         const entries = response.entries;
-        this.entriesToFiles(entries);
+        this.dbxEntriesToFiles(entries);
       });
   }
-  entriesToFiles(entries) {
+  dbxEntriesToFiles(entries) {
     entries.forEach(element => {
       const dbxFile:File = {
         type:element['.tag'],

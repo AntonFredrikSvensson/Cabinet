@@ -2,7 +2,7 @@
     <li>
         <div class="box">
             <i class="fab fa-dropbox fa-3x"></i>
-            <button *ngIf="!gDriveIsAuth.isAuth; else elseGdrBlock" class="btn btn-primary" type="button"
+            <button *ngIf="!gdriveAuth.isAuth; else elseGdrBlock" class="btn btn-primary" type="button"
                 (click)="handleGdrAuthorization()">
                 Connect to Google Drive
             </button>
