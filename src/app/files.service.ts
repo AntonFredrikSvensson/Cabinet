@@ -19,11 +19,9 @@ import { identifierModuleUrl } from '@angular/compiler';
 export class FilesService {
   private dbxAuth: AuthObj;
   private dbxSubscription: Subscription;
-  public dbxStream: Subject<File>;
   dbx;
   private gdrAuth: AuthObj;
   private gdrSubscription: Subscription;
-  public gdrStream: Subject<File>;
   public fileStream: Subject<File>;
   // private gdrpath = 'https://www.googleapis.com/drive/v2/files';
 
@@ -41,8 +39,6 @@ export class FilesService {
     this.gdrSubscription = this.gdrAuthService
       .getAuth()
       .subscribe(auth => (this.gdrAuth = auth));
-    this.dbxStream = new Subject<File>();
-    this.gdrStream = new Subject<File>();
     this.fileStream = new Subject<File>();
     this.dbx = new Dropbox({ accessToken: this.dbxAuth.accessToken });
   }

@@ -23,11 +23,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
-import { DbxStorageComponent } from './dbx-storage/dbx-storage.component';
 import { firebaseConfig } from './environmentalVariables';
-import { GdriveStorageComponent } from './gdrive-storage/gdrive-storage.component';
 import { GdrAuthComponent } from './gdr-auth/gdr-auth.component';
-import { GdrStorageComponent } from './gdr-storage/gdr-storage.component';
 import { StorageComponent } from './storage/storage.component';
 
 
@@ -41,10 +38,7 @@ import { StorageComponent } from './storage/storage.component';
     SignUpComponent,
     MainNavComponent,
     DbxAuthComponent,
-    DbxStorageComponent,
-    GdriveStorageComponent,
     GdrAuthComponent,
-    GdrStorageComponent,
     StorageComponent,
   ],
   imports: [
