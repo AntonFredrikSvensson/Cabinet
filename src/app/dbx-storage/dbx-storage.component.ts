@@ -44,7 +44,7 @@ export class DbxStorageComponent implements OnInit, OnDestroy, OnChanges {
       // console.log('Current URL', this.currentUrl);
     });
 
-    this.fileStreamSubscription = this.filesService.stream
+    this.fileStreamSubscription = this.filesService.dbxStream
       .subscribe((file) => {
         this.addFileToArray(file);
       });

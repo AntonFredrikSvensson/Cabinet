@@ -1,3 +1,4 @@
+import { GdrStorageComponent } from './gdr-storage/gdr-storage.component';
 import { GdrAuthComponent } from './gdr-auth/gdr-auth.component';
 import { GdriveStorageComponent } from './gdrive-storage/gdrive-storage.component';
 import { NgModule } from '@angular/core';
@@ -18,7 +19,7 @@ const routes: Routes = [
   { path: 'dbxauth', component: DbxAuthComponent },
   { path: 'gdrauth', component: GdrAuthComponent},
   { path: 'files', component: FilesComponent },
-  { path: 'temp', component: GdriveStorageComponent},
+  { path: 'temp', component: GdrStorageComponent},
   { path: '**', component: FilesComponent, },
 ];
 

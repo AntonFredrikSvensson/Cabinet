@@ -107,15 +107,4 @@ export class GdrAuthComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
-
-
-  // http://localhost:4200/gdrauth
-  // #
-  // access_token=ya29.a0AfH6SMA0EvWkSBHztc2GqZsovwCUfPJtu5W_sjI8ESX0x6w52DECaKvBo4o1RR7rteABKHrgZzd45BVZKjqbRuV1tzAZBdP8nPXprbthE5DBmUEyX5057Epak-raSM6IZH0ObgybGY05g-R7ZpCMlRPVPJp5XQigRJQ&
-  // token_type=Bearer&
-  // expires_in=3599&
-  // scope=email%20profile%20https://www.googleapis.com/auth/drive.metadata.readonly%20openid%20https://www.googleapis.com/auth/userinfo.email%20https://www.googleapis.com/auth/userinfo.profile&
-  // authuser=0&
-  // prompt=consent
 }
