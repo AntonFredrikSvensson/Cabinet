@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GdriveAuthService } from './../gdrive-auth.service';
 import { Component, OnInit, SimpleChanges, OnDestroy, OnChanges } from '@angular/core';
 import { UrlMethods } from '../utils';
+import { File } from '../file';
 
 @Component({
   selector: 'app-gdr-storage',

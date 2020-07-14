@@ -28,6 +28,7 @@ import { firebaseConfig } from './environmentalVariables';
 import { GdriveStorageComponent } from './gdrive-storage/gdrive-storage.component';
 import { GdrAuthComponent } from './gdr-auth/gdr-auth.component';
 import { GdrStorageComponent } from './gdr-storage/gdr-storage.component';
+import { StorageComponent } from './storage/storage.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { GdrStorageComponent } from './gdr-storage/gdr-storage.component';
     GdriveStorageComponent,
     GdrAuthComponent,
     GdrStorageComponent,
+    StorageComponent,
   ],
   imports: [
     BrowserModule,
