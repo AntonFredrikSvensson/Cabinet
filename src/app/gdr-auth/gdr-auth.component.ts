@@ -24,12 +24,12 @@ export class GdrAuthComponent implements OnInit, OnDestroy {
 
     if (!this.gdrAuth.isAuth) {
       const authUrl = this.router.url;
-      console.log(authUrl);
+      // console.log(authUrl);
       const parameters = authUrl.split('#')[1] || '';
-      console.log(parameters);
+      // console.log(parameters);
       if (parameters.length > 0) {
         const arrParams = parameters.split('&') || [];
-        console.log(arrParams);
+        // console.log(arrParams);
         if (arrParams.length > 0) {
           const tempAuth: AuthObj = { isAuth: false };
           // tslint:disable-next-line: prefer-for-of
@@ -37,35 +37,35 @@ export class GdrAuthComponent implements OnInit, OnDestroy {
             const arrItem = arrParams[i].split('=');
             switch (arrItem[0]) {
               case 'access_token':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.accessToken = arrItem[1];
                 break;
               case 'token_type':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.tokenType = arrItem[1];
                 break;
               case 'uid':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.uid = arrItem[1];
                 break;
               case 'account_id':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.accountId = arrItem[1];
                 break;
               case 'expires_in':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.expires_in = arrItem[1];
                 break;
               case 'scope':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.scope = arrItem[1];
                 break;
               case 'authuser':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.authuser = arrItem[1];
                 break;
               case 'prompt':
-                console.log(arrItem[1]);
+                // console.log(arrItem[1]);
                 tempAuth.prompt = arrItem[1];
                 break;
               default:
@@ -73,20 +73,20 @@ export class GdrAuthComponent implements OnInit, OnDestroy {
             }
           }
           if (tempAuth.accessToken && tempAuth.tokenType) {
-            console.log('tempAuth.isAuth set to true');
+            // console.log('tempAuth.isAuth set to true');
             tempAuth.isAuth = true;
             this.gdrAuth = tempAuth;
           }else{
-            console.log('tempAuth.isAuth set to false');
-            console.log(tempAuth);
+            // console.log('tempAuth.isAuth set to false');
+            // console.log(tempAuth);
           }
 
 
         }
-        console.log('gdrAuth.isAuth: ' + this.gdrAuth.isAuth);
+        // console.log('gdrAuth.isAuth: ' + this.gdrAuth.isAuth);
         // Store credentials into Auth-service and into localStorage
         if (this.gdrAuth.isAuth) {
-          console.log(this.gdrAuth);
+          // console.log(this.gdrAuth);
           this.authService.storeAuth(this.gdrAuth);
           this.router.navigate(['']); // Navigate the user to homepage
 

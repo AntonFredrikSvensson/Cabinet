@@ -40,8 +40,8 @@ export class GdriveAuthService {
   storeAuth(inGdriveAuth: any) {
     this.gdrAuth = inGdriveAuth;
     LocalStorageMethods.store('gdrCredentials', this.gdrAuth);
-    console.log('store Auth gdrAuthObj:');
-    console.log(this.gdrAuth);
+    // console.log('store Auth gdrAuthObj:');
+    // console.log(this.gdrAuth);
     return this.authObjBehaviorSubject.next(this.gdrAuth);
   }
 
