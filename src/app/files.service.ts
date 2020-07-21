@@ -47,18 +47,25 @@ export class FilesService {
       this.getDbxFiles(path);
     }
     if (this.gdrAuth.isAuth){
-      this.getGdrFiles();
+      const tempFolderId = 'root'
+      this.getGdrFiles(tempFolderId);
     }
   }
 
-  getGdrFiles() {
+  getGdrFiles(folderId) {
     console.log('---get Gdr files---');
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer ' + this.gdrAuth.accessToken
     });
-    const reqParams = new HttpParams().set('pageSize', `200`);
-    return this.http.get<any>('https://www.googleapis.com/drive/v2/files?' + this.gdrAuth.accessToken,
-      { headers: reqHeader, params: reqParams }
+    // https://www.googleapis.com/drive/v2/files/folderId/children 
+    // https://developers.google.com/drive/api/v2/reference/children/list
+    
+    // https://www.googleapis.com/drive/v2/files
+    // const reqParams = new HttpParams().set('q', `mimeType = 'application/vnd.google-apps.folder'`);
+    return this.http.get<any>('https://www.googleapis.com/drive/v2/files/' + folderId + '/children?' + this.gdrAuth.accessToken,
+      { headers: reqHeader, 
+        // params: reqParams 
+      }
     )
       .subscribe(filesObject => this.gdrFilesListObjectToItemList(filesObject));
   }
@@ -94,21 +101,49 @@ export class FilesService {
 
   gdrEntriesToFiles(entries) {
     // console.log('---gdrEntriesToFiles---');
-    entries.forEach(element => {
-      const gdrFile: File = {
-        type: element.kind,
-        name: element.title,
-        path: element.selfLink,
-        size: element.fileSize,
-        last_modified: element.modifiedDate,
-        id: element.id,
-        storageProvider: 'Google Drive',
-      };
-      // console.log(gdrFile);
-      this.fileStream.next(gdrFile);
+    entries.forEach(FileElement => {
+      // console.log(FileElement);
+      this.getSingleGdrFile(FileElement.id);
     });
+    // => element {
+    //   const gdrFile: File = {
+    //     type: element.kind,
+    //     name: element.title,
+    //     path: element.selfLink,
+    //     size: element.fileSize,
+    //     last_modified: element.modifiedDate,
+    //     id: element.id,
+    //     storageProvider: 'Google Drive',
+    //   };
+    //   // console.log(gdrFile);
+    //   this.fileStream.next(gdrFile);
+    // });
   }
 
+  getSingleGdrFile(fileId){
+    console.log('---get Gdr single file---');
+    const reqHeader = new HttpHeaders({
+      Authorization: 'Bearer ' + this.gdrAuth.accessToken
+    });
+    return this.http.get<any>('https://www.googleapis.com/drive/v2/files/' + fileId + '?' + this.gdrAuth.accessToken,
+      { headers: reqHeader
+      }
+    )
+      .subscribe(element => {
+        console.log(element);
+        const gdrFile: File = {
+          type: element.mimeType,
+          name: element.title,
+          path: element.selfLink,
+          size: element.fileSize,
+          last_modified: element.modifiedDate,
+          id: element.id,
+          storageProvider: 'Google Drive',
+        };
+        console.log(gdrFile);
+        this.fileStream.next(gdrFile);
+      });
+  }
 
   getDbxFiles(path) {
     path = path.substring(6);
