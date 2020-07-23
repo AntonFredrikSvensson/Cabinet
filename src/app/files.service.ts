@@ -47,13 +47,20 @@ export class FilesService {
       this.getDbxFiles(path);
     }
     if (this.gdrAuth.isAuth){
-      const tempFolderId = 'root'
+      let tempFolderId = path;
+      console.log('---get files---');
+      if(path === ''){
+        tempFolderId = 'root';
+      }else{
+        tempFolderId = path.split('/')[2];
+      }
+      console.log(tempFolderId);
       this.getGdrFiles(tempFolderId);
     }
   }
 
   getGdrFiles(folderId) {
-    console.log('---get Gdr files---');
+    // console.log('---get Gdr files---');
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer ' + this.gdrAuth.accessToken
     });
@@ -71,8 +78,8 @@ export class FilesService {
   }
 
   gdrFilesListObjectToItemList(filesObject) {
-    console.log('---tempFunction---');
-    console.log(filesObject);
+    // console.log('---tempFunction---');
+    // console.log(filesObject);
     let i;
     for (i = 0; i < 10; i++){
       let nextPageToken = filesObject.nextPageToken;
@@ -121,7 +128,7 @@ export class FilesService {
   }
 
   getSingleGdrFile(fileId){
-    console.log('---get Gdr single file---');
+    // console.log('---get Gdr single file---');
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer ' + this.gdrAuth.accessToken
     });
@@ -130,17 +137,25 @@ export class FilesService {
       }
     )
       .subscribe(element => {
-        console.log(element);
+        // console.log(element);
+        // console.log(element.parents[0].id);
+        let fType;
+        if (element.mimeType == 'application/vnd.google-apps.folder'){
+          fType = 'folder';
+        }else{
+          fType = 'file';
+        }
+        // console.log(element.mimeType + ' : ' + fType);
         const gdrFile: File = {
-          type: element.mimeType,
+          type: fType,
           name: element.title,
-          path: element.selfLink,
+          path: element.parents[0].id,
           size: element.fileSize,
           last_modified: element.modifiedDate,
           id: element.id,
           storageProvider: 'Google Drive',
         };
-        console.log(gdrFile);
+        // console.log(gdrFile);
         this.fileStream.next(gdrFile);
       });
   }
