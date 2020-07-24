@@ -3,8 +3,6 @@
       <tr>
         <th scope="col">Type</th>
         <th scope="col">File Name</th>
-        <th scope="col">File Path / Folder ID</th>
-        <th scope="col">File ID</th>
         <th scope="col">File Size</th>
         <th scope="col">Last modified</th>
       </tr>
@@ -14,15 +12,13 @@
         <ng-template *ngIf="file.type === 'folder';then thenBlock; else elseBlock"></ng-template>
         <ng-template #thenBlock>
           <td>
-            <a (click)= "clearFilesArray()" routerLink="/files/{{file.id}}" routerLinkActive="active">{{file.type}}</a>
+            <a (click)= "clearFilesArray()" routerLink="/files/{{file.folderNavigationParameter}}" routerLinkActive="active">{{file.type}}</a>
           </td>
         </ng-template>
         <ng-template #elseBlock>
           <td>{{file.type}}</td>
         </ng-template>
         <td>{{file.name}}</td>
-        <td>{{file.path}}</td>
-        <td>{{file.id}}</td>
         <td>{{file.size}}</td>
         <td>{{file.last_modified}}</td>
       </tr>
