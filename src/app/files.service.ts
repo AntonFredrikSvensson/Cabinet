@@ -43,19 +43,40 @@ export class FilesService {
   }
 
   getFiles(path) {
-    if (this.dbxAuth.isAuth) {
-      this.getDbxFiles(path);
-    }
-    if (this.gdrAuth.isAuth) {
-      let tempFolderId = path;
-      console.log('---get files---');
-      if (path === '') {
-        tempFolderId = 'root';
-      } else {
-        tempFolderId = path.split('/')[2];
+    // console.log(path);
+    let updatedPath;
+    let storageIndicator;
+    if (path === '') {
+      updatedPath = path;
+      storageIndicator = 'ALL';
+    } else {
+      if (path.split('/')[2] === 'dbx:') {
+        storageIndicator = 'DBX';
+        updatedPath = path.split(':')[1];
+      } else if (path.split('/')[2] === 'dbx:') {
+        storageIndicator = 'GDR';
+        updatedPath = path.split('/')[3];
       }
-      console.log(tempFolderId);
-      this.getGdrFiles(tempFolderId);
+    }
+    // console.log(updatedPath);
+    if (storageIndicator === 'ALL' || storageIndicator === 'DBX') {
+      if (this.dbxAuth.isAuth) {
+        // console.log('---get dbx files ---');
+        this.getDbxFiles(updatedPath);
+      }
+    }
+    if (storageIndicator === 'ALL' || storageIndicator === 'GDR') {
+      if (this.gdrAuth.isAuth) {
+        let tempFolderId = updatedPath;
+        // console.log('---get gdr files---');
+        if (updatedPath === '') {
+          tempFolderId = 'root';
+        } else {
+          tempFolderId = updatedPath.split('/')[2];
+        }
+        // console.log(tempFolderId);
+        this.getGdrFiles(tempFolderId);
+      }
     }
   }
 
@@ -64,7 +85,7 @@ export class FilesService {
     const reqHeader = new HttpHeaders({
       Authorization: 'Bearer ' + this.gdrAuth.accessToken
     });
-    // https://www.googleapis.com/drive/v2/files/folderId/children 
+    // https://www.googleapis.com/drive/v2/files/folderId/children
     // https://developers.google.com/drive/api/v2/reference/children/list
     // 'https://www.googleapis.com/drive/v2/files/' + folderId + '/children?'
     // `mimeType = 'application/vnd.google-apps.folder'`
@@ -82,8 +103,8 @@ export class FilesService {
   }
 
   gdrFilesListObjectToItemList(filesObject) {
-    console.log('---tempFunction---');
-    console.log(filesObject);
+    // console.log('---tempFunction---');
+    // console.log(filesObject);
     let i;
     for (i = 0; i < 10; i++) {
       let nextPageToken = filesObject.nextPageToken;
@@ -98,7 +119,7 @@ export class FilesService {
           { headers: newreqHeader, params: reqParams }
         )
           .subscribe(newFilesObject => {
-            console.log(newFilesObject);
+            // console.log(newFilesObject);
             nextPageToken = newFilesObject.nextPageToken;
           });
       }
@@ -111,7 +132,7 @@ export class FilesService {
   }
 
   gdrEntriesToFiles(entries) {
-    console.log('---gdrEntriesToFiles---');
+    // console.log('---gdrEntriesToFiles---');
     // entries.forEach(FileElement => {
     //   console.log(FileElement);
     //   this.getSingleGdrFile(FileElement.id);
@@ -125,16 +146,16 @@ export class FilesService {
         storageProvider: 'Google Drive',
       };
       // setting folder and file specific attributes
-      if (element.mimeType == 'application/vnd.google-apps.folder') {
-        gdrFile.folderNavigationParameter = element.id;
+      if (element.mimeType === 'application/vnd.google-apps.folder') {
+        gdrFile.folderNavigationParameter = 'gdr:' + element.id;
         gdrFile.type = 'folder';
       } else {
         gdrFile.size = element.fileSize;
         gdrFile.type = 'file';
       }
-      console.log(gdrFile);
+      // console.log(gdrFile);
       this.fileStream.next(gdrFile);
-      
+
     });
   }
 
@@ -173,7 +194,8 @@ export class FilesService {
   // }
 
   getDbxFiles(path) {
-    path = path.substring(6);
+    // console.log(path);
+    // path = path.substring(6);
     this.dbx.filesListFolder({ path: decodeURI(path) })
       .then(response => {
         const entries = response.entries;
@@ -191,9 +213,9 @@ export class FilesService {
         storageProvider: 'Dropbox',
       };
       // adding folder and file specific attributes
-      if(dbxFile.type === 'folder'){
-        dbxFile.folderNavigationParameter = element.path_display;
-      }else{
+      if (dbxFile.type === 'folder') {
+        dbxFile.folderNavigationParameter = 'dbx:' + element.path_display;
+      } else {
         dbxFile.size = element.size;
       }
 
