@@ -43,19 +43,22 @@ export class FilesService {
   }
 
   getFiles(path) {
+    // console.log('--- get Files ---');
     // console.log(path);
     let updatedPath;
     let storageIndicator;
-    if (path === '') {
-      updatedPath = path;
+    let pathList;
+    if (path === '' || path === '/files') {
+      updatedPath = '';
       storageIndicator = 'ALL';
     } else {
-      if (path.split('/')[2] === 'dbx:') {
+      pathList = path.split(':');
+      if (pathList[0].slice(-3) === 'dbx') {
         storageIndicator = 'DBX';
-        updatedPath = path.split(':')[1];
-      } else if (path.split('/')[2] === 'dbx:') {
+        updatedPath = pathList[1];
+      } else if (pathList[0].slice(-3) === 'gdr') {
         storageIndicator = 'GDR';
-        updatedPath = path.split('/')[3];
+        updatedPath = pathList[1];
       }
     }
     // console.log(updatedPath);
@@ -71,8 +74,6 @@ export class FilesService {
         // console.log('---get gdr files---');
         if (updatedPath === '') {
           tempFolderId = 'root';
-        } else {
-          tempFolderId = updatedPath.split('/')[2];
         }
         // console.log(tempFolderId);
         this.getGdrFiles(tempFolderId);

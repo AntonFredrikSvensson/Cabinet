@@ -24,6 +24,7 @@ export class StorageComponent implements OnInit, OnDestroy {
   private currentUrl = '';
   private fileStreamSubscription: Subscription;
   public filesArray: Array<File>;
+  public breadCrumbsObject = { 0: ['Home', ''] };
 
   constructor(
     private gdrAuthService: GdriveAuthService,
@@ -60,6 +61,26 @@ export class StorageComponent implements OnInit, OnDestroy {
 
   clearFilesArray(): void {
     this.filesArray = [];
+  }
+
+  clearBreadCrumbs(crumbKey) {
+    this.clearFilesArray();
+    for (const [key] of Object.entries(this.breadCrumbsObject)) {
+      if (key > crumbKey) {
+        delete this.breadCrumbsObject[key];
+      }
+    }
+    console.log(this.breadCrumbsObject);
+  }
+
+  navigateToFolder(folderName, folderLink) {
+    this.clearFilesArray();
+    this.addBreadCrumb(folderName, folderLink);
+  }
+  addBreadCrumb(folderName, folderLink) {
+    const newKey = Object.keys(this.breadCrumbsObject).length;
+    this.breadCrumbsObject[newKey] = [folderName, '/files/' + folderLink];
+    console.log(this.breadCrumbsObject);
   }
 
   ngOnDestroy(): void {
