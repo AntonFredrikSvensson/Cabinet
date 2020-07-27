@@ -1,40 +1,42 @@
-<div *ngFor="let item of breadCrumbsObject | keyvalue">
-  <!-- <ng-template *ngif="item.key === 0;then thenBlockBreacCrumb else elseBlockBreadCrumb"></ng-template> 
-  <ng-template #thenBlockBreacCrumb>
-    <span><a (click)="clearBreadCrumbs((item.key))" routerLink="{{item.value[1]}}">{{item.value[0]}}/</a></span>
-  </ng-template>
-  <ng-template #elseBlockBreadCrumb>
-    <span><a (click)="clearBreadCrumbs((item.key))" routerLink="/files/{{item.value[1]}}">{{item.value[0]}}/</a></span>
-  </ng-template> -->
-  <span><a (click)="clearBreadCrumbs((item.key))" routerLink="{{item.value[1]}}">{{item.value[0]}}/</a></span>
+<div class="filesContainer">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" *ngFor="let item of breadCrumbsObject | keyvalue">
+        <a (click)="clearBreadCrumbs((item.key))" routerLink="{{item.value[1]}}">{{item.value[0]}}</a>
+      </li>
+    </ol>
+  </nav>
+
+  <div>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">File Name</th>
+          <th scope="col">File Size</th>
+          <th scope="col">Last modified</th>
+          <th scope="col">Storage Provider</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of filesArray">
+          <ng-template *ngIf="file.type === 'folder';then thenBlock; else elseBlock"></ng-template>
+          <ng-template #thenBlock>
+            <td>
+              <a (click)="navigateToFolder((file.name), (file.folderNavigationParameter))"
+                routerLink="/files/{{file.folderNavigationParameter}}" routerLinkActive="active">{{file.type}}</a>
+            </td>
+          </ng-template>
+          <ng-template #elseBlock>
+            <td>{{file.type}}</td>
+          </ng-template>
+          <td>{{file.name}}</td>
+          <td>{{file.size}}</td>
+          <td>{{file.last_modified}}</td>
+          <td>{{file.storageProvider}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
-<!-- <button (click)="addBreadCrumb()">Test</button> -->
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Type</th>
-      <th scope="col">File Name</th>
-      <th scope="col">File Size</th>
-      <th scope="col">Last modified</th>
-      <th scope="col">Storage Provider</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let file of filesArray">
-      <ng-template *ngIf="file.type === 'folder';then thenBlock; else elseBlock"></ng-template>
-      <ng-template #thenBlock>
-        <td>
-          <a (click)="navigateToFolder((file.name), (file.folderNavigationParameter))"
-            routerLink="/files/{{file.folderNavigationParameter}}" routerLinkActive="active">{{file.type}}</a>
-        </td>
-      </ng-template>
-      <ng-template #elseBlock>
-        <td>{{file.type}}</td>
-      </ng-template>
-      <td>{{file.name}}</td>
-      <td>{{file.size}}</td>
-      <td>{{file.last_modified}}</td>
-      <td>{{file.storageProvider}}</td>
-    </tr>
-  </tbody>
-</table>
