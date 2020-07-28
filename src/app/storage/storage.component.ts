@@ -65,25 +65,10 @@ export class StorageComponent implements OnInit, OnDestroy {
     this.filesArray = [];
   }
 
-  clearBreadCrumbs(crumbKey) {
-    this.clearFilesArray();
-    for (const [key] of Object.entries(this.breadCrumbsObject)) {
-      if (key > crumbKey) {
-        delete this.breadCrumbsObject[key];
-      }
-    }
-    console.log(this.breadCrumbsObject);
-  }
-
   navigateToFolder(folderName, folderLink) {
     this.clearFilesArray();
     this.breadCrumbService.addBreadCrumb(folderName, folderLink);
   }
-  // addBreadCrumb(folderName, folderLink) {
-  //   const newKey = Object.keys(this.breadCrumbsObject).length;
-  //   this.breadCrumbsObject[newKey] = [folderName, '/files/' + folderLink];
-  //   console.log(this.breadCrumbsObject);
-  // }
 
   ngOnDestroy(): void {
     this.gdrAuthSubscription.unsubscribe();

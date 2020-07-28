@@ -1,13 +1,13 @@
 import { BreadCrumbsService } from './../bread-crumbs.service';
 import { Subscription } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-bread-crumbs',
   templateUrl: './bread-crumbs.component.html',
   styleUrls: ['./bread-crumbs.component.css']
 })
-export class BreadCrumbsComponent implements OnInit {
+export class BreadCrumbsComponent implements OnInit, OnDestroy {
   public breadCrumbsObject: any;
   private breadCrumbSubscription: Subscription;
 
@@ -25,4 +25,7 @@ export class BreadCrumbsComponent implements OnInit {
     this.breadCrumbService.clearBreadCrumbs(crumbKey);
   }
 
+  ngOnDestroy(): void {
+    this.breadCrumbSubscription.unsubscribe();
+  }
 }
