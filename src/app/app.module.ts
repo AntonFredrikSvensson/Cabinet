@@ -26,6 +26,7 @@ import { DbxAuthComponent } from './dbx-auth/dbx-auth.component';
 import { firebaseConfig } from './environmentalVariables';
 import { GdrAuthComponent } from './gdr-auth/gdr-auth.component';
 import { StorageComponent } from './storage/storage.component';
+import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { StorageComponent } from './storage/storage.component';
     DbxAuthComponent,
     GdrAuthComponent,
     StorageComponent,
+    BreadCrumbsComponent,
   ],
   imports: [
     BrowserModule,

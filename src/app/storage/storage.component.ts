@@ -1,3 +1,4 @@
+import { BreadCrumbsService } from './../bread-crumbs.service';
 import { UrlMethods } from './../utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DbxAuthService } from './../dbx-auth.service';
@@ -32,6 +33,7 @@ export class StorageComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private filesService: FilesService,
+    private breadCrumbService: BreadCrumbsService,
   ) { }
 
   ngOnInit(): void {
@@ -75,13 +77,13 @@ export class StorageComponent implements OnInit, OnDestroy {
 
   navigateToFolder(folderName, folderLink) {
     this.clearFilesArray();
-    this.addBreadCrumb(folderName, folderLink);
+    this.breadCrumbService.addBreadCrumb(folderName, folderLink);
   }
-  addBreadCrumb(folderName, folderLink) {
-    const newKey = Object.keys(this.breadCrumbsObject).length;
-    this.breadCrumbsObject[newKey] = [folderName, '/files/' + folderLink];
-    console.log(this.breadCrumbsObject);
-  }
+  // addBreadCrumb(folderName, folderLink) {
+  //   const newKey = Object.keys(this.breadCrumbsObject).length;
+  //   this.breadCrumbsObject[newKey] = [folderName, '/files/' + folderLink];
+  //   console.log(this.breadCrumbsObject);
+  // }
 
   ngOnDestroy(): void {
     this.gdrAuthSubscription.unsubscribe();
