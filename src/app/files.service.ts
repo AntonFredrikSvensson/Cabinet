@@ -23,6 +23,9 @@ export class FilesService {
   private gdrAuth: AuthObj;
   private gdrSubscription: Subscription;
   public fileStream: Subject<File>;
+  private fileStreamSubscription: Subscription;
+  private filesArray: Array<File>;
+  public filesArrayStream: Subject<Array<File>>;
 
   constructor(
     private dbxAuthService: DbxAuthService,
@@ -39,7 +42,16 @@ export class FilesService {
       .getAuth()
       .subscribe(auth => (this.gdrAuth = auth));
     this.fileStream = new Subject<File>();
+    this.filesArrayStream = new Subject<Array<File>>();
     this.dbx = new Dropbox({ accessToken: this.dbxAuth.accessToken });
+    this.filesArray = [];
+    this.fileStreamSubscription = this.fileStream
+    .subscribe((file) => {
+      this.filesArray.push(file);
+      this.filesArrayStream.next(this.filesArray);
+    });
+    // console.log('---constructor FileService---');
+    // console.log(this.filesArray);
   }
 
   getFiles(path) {
@@ -223,5 +235,10 @@ export class FilesService {
 
       this.fileStream.next(dbxFile);
     });
+  }
+
+  clearFilesArray(){
+    this.filesArray = [];
+    this.filesArrayStream.next(this.filesArray);
   }
 }

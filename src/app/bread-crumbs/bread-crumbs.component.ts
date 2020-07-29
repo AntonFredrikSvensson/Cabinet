@@ -1,3 +1,4 @@
+import { FilesService } from './../files.service';
 import { BreadCrumbsService } from './../bread-crumbs.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -12,7 +13,8 @@ export class BreadCrumbsComponent implements OnInit, OnDestroy {
   private breadCrumbSubscription: Subscription;
 
   constructor(
-    private breadCrumbService: BreadCrumbsService
+    private breadCrumbService: BreadCrumbsService,
+    private filesService: FilesService,
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class BreadCrumbsComponent implements OnInit, OnDestroy {
   }
 
   clearBreadCrumbs(crumbKey) {
+    this.filesService.clearFilesArray();
     this.breadCrumbService.clearBreadCrumbs(crumbKey);
   }
 

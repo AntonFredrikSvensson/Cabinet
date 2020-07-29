@@ -23,9 +23,8 @@ export class StorageComponent implements OnInit, OnDestroy {
   private dbxAuth: AuthObj;
   private dbxConnection;
   private currentUrl = '';
-  private fileStreamSubscription: Subscription;
+  private fileArrayStreamSubscription: Subscription;
   public filesArray: Array<File>;
-  public breadCrumbsObject = { 0: ['Home', ''] };
 
   constructor(
     private gdrAuthService: GdriveAuthService,
@@ -55,14 +54,19 @@ export class StorageComponent implements OnInit, OnDestroy {
 
     this.filesArray = [];
 
-    this.fileStreamSubscription = this.filesService.fileStream
-      .subscribe((file) => {
-        this.filesArray.push(file);
+    this.fileArrayStreamSubscription = this.filesService.filesArrayStream
+      .subscribe((filesArray) => {
+        console.log('---Storage component, files array subscription---');
+        console.log(filesArray);
+        this.filesArray = filesArray;
+        // this.filesArray = filesArray
       });
   }
 
   clearFilesArray(): void {
     this.filesArray = [];
+    this.filesService.clearFilesArray();
+    // this.filesService.filesArrayStream.next(this.filesArray);
   }
 
   navigateToFolder(folderName, folderLink) {
@@ -73,7 +77,6 @@ export class StorageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.gdrAuthSubscription.unsubscribe();
     this.dbxAuthSubscription.unsubscribe();
-    this.fileStreamSubscription.unsubscribe();
   }
 
 }
