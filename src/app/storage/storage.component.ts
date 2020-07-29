@@ -56,17 +56,14 @@ export class StorageComponent implements OnInit, OnDestroy {
 
     this.fileArrayStreamSubscription = this.filesService.filesArrayStream
       .subscribe((filesArray) => {
-        console.log('---Storage component, files array subscription---');
-        console.log(filesArray);
+        // console.log('---Storage component, files array subscription---');
+        // console.log(filesArray);
         this.filesArray = filesArray;
-        // this.filesArray = filesArray
       });
   }
 
   clearFilesArray(): void {
-    this.filesArray = [];
     this.filesService.clearFilesArray();
-    // this.filesService.filesArrayStream.next(this.filesArray);
   }
 
   navigateToFolder(folderName, folderLink) {
@@ -77,6 +74,7 @@ export class StorageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.gdrAuthSubscription.unsubscribe();
     this.dbxAuthSubscription.unsubscribe();
+    this.fileArrayStreamSubscription.unsubscribe();
   }
 
 }

@@ -29,8 +29,8 @@ export class BreadCrumbsService {
     const newKey = Object.keys(this.breadCrumbsObject).length;
     this.breadCrumbsObject[newKey] = [folderName, '/files/' + folderLink];
     this.storeBreadCrumbs(this.breadCrumbsObject);
-    console.log('---addBreadCrumb---');
-    console.log(this.breadCrumbsObject);
+    // console.log('---addBreadCrumb---');
+    // console.log(this.breadCrumbsObject);
   }
 
   clearBreadCrumbs(crumbKey) {
@@ -41,8 +41,8 @@ export class BreadCrumbsService {
       }
     }
     this.storeBreadCrumbs(this.breadCrumbsObject);
-    console.log('---clearBreadCrumbs---');
-    console.log(this.breadCrumbsObject);
+    // console.log('---clearBreadCrumbs---');
+    // console.log(this.breadCrumbsObject);
   }
 
   clearStoredBreadCrumbs() {
@@ -51,7 +51,7 @@ export class BreadCrumbsService {
   }
 
   storeBreadCrumbs(breadCrumbsObject: any) {
-    console.log('---storeBreadCrumbs---');
+    // console.log('---storeBreadCrumbs---');
     this.breadCrumbsObject = breadCrumbsObject;
     LocalStorageMethods.store('breadCrumbs', this.breadCrumbsObject);
     return this.breadCrumbSubject.next(this.breadCrumbsObject);
