@@ -49,6 +49,7 @@ export class DbxAuthService {
   clearAuth() {
     this.dbxAuth = {};
     LocalStorageMethods.clear();
+    LocalStorageMethods.remove('dbxCredentials');
     return this.objBehaviorSubject.next(this.dbxAuth);
   }
 }

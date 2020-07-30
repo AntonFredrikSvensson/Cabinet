@@ -47,7 +47,7 @@ export class GdriveAuthService {
 
   clearAuth() {
     this.gdrAuth = {};
-    LocalStorageMethods.clear();
+    LocalStorageMethods.remove('gdrCredentials');
     return this.authObjBehaviorSubject.next(this.gdrAuth);
   }
 
