@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let file of filesArray">
-          <ng-template *ngIf="file.type === 'folder';then thenBlock; else elseBlock"></ng-template>
+          <ng-template *ngIf="file.type === 'Folder';then thenBlock; else elseBlock"></ng-template>
           <ng-template #thenBlock>
             <td>
               <a (click)="navigateToFolder((file.name), (file.folderNavigationParameter))"

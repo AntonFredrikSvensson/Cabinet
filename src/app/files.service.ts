@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subscription, Subject} from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { DbxAuthService } from './dbx-auth.service';
 import { GdriveAuthService } from './gdrive-auth.service';
 import { AuthObj } from './auth';
@@ -44,7 +44,8 @@ export class FilesService {
       .subscribe((file) => {
         this.filesArray.push(file);
         this.filesArrayStream.next(this.filesArray);
-      });
+      },
+      );
 
     this.dbxFileStreamSubscription = this.dbxFilesService.dbxFileStream
       .subscribe((file) => {
@@ -52,6 +53,10 @@ export class FilesService {
         this.filesArrayStream.next(this.filesArray);
       });
   }
+
+  // getFilesArray() {
+  //   this.filesArrayStream.next(this.filesArray);
+  // }
 
   getFiles(path) {
     // console.log('--- get Files ---');

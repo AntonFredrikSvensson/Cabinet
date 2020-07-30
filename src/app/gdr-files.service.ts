@@ -86,7 +86,7 @@ export class GdrFilesService {
       // setting folder and file specific attributes
       if (element.mimeType === 'application/vnd.google-apps.folder') {
         gdrFile.folderNavigationParameter = 'gdr:' + element.id;
-        gdrFile.type = 'folder';
+        gdrFile.type = 'Folder';
       } else {
         gdrFile.size = element.fileSize;
         gdrFile.type = 'file';

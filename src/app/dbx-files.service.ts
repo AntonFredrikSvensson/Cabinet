@@ -48,6 +48,7 @@ export class DbxFilesService {
       };
       // adding folder and file specific attributes
       if (dbxFile.type === 'folder') {
+        dbxFile.type = 'Folder';
         dbxFile.folderNavigationParameter = 'dbx:' + element.path_display;
       } else {
         dbxFile.size = element.size;
