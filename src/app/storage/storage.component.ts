@@ -10,6 +10,7 @@ import { Dropbox } from 'dropbox';
 
 import { AuthObj } from './../auth';
 import { File } from '../file';
+import { MethodCall } from '@angular/compiler';
 
 @Component({
   selector: 'app-storage',
@@ -54,12 +55,44 @@ export class StorageComponent implements OnInit, OnDestroy {
 
     this.filesArray = [];
 
+    // this.filesService.getFilesArray();
+
     this.fileArrayStreamSubscription = this.filesService.filesArrayStream
-      .subscribe((filesArray) => {
-        // console.log('---Storage component, files array subscription---');
-        // console.log(filesArray);
-        this.filesArray = filesArray;
-      });
+      .subscribe(
+        (data: any) => {
+          this.filesArray = data;
+          // console.log(this.filesArray);
+          // console.log('---fileArrayStreamSubscription---');
+          this.sortFilesArray('type', 'desc');
+        });
+    }
+
+  sortCompareValues(key, order = 'asc') {
+    return function innerSort(a, b) {
+      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+        // property doesn't exist on either object
+        return 0;
+      }
+      const varA = (typeof a[key] === 'string')
+        ? a[key].toUpperCase() : a[key];
+      const varB = (typeof b[key] === 'string')
+        ? b[key].toUpperCase() : b[key];
+      let comparison = 0;
+      if (varA > varB) {
+        comparison = 1;
+      } else if (varA < varB) {
+        comparison = -1;
+      }
+      return (
+        (order === 'desc') ? (comparison * -1) : comparison
+      );
+    };
+  }
+
+  sortFilesArray(key: string, order: string){
+    // console.log('---sortArray---');
+    this.filesArray.sort(this.sortCompareValues(key, order));
+    // console.log(this.filesArray);
   }
 
   clearFilesArray(): void {
