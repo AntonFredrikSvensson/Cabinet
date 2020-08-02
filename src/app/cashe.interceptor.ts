@@ -13,18 +13,18 @@ import { tap } from 'rxjs/Operators';
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
 
         // pass along non GET requests and invalidate cashe for these urls
-        if (req.method !== 'GET'){
-            console.log('invalidating cashe: ${req.method} ${req.url}');
-            this.casheService.invalidateUrl(req.urlWithParams);
-            return next.handle(req);
-        }
+        // if (req.method !== 'GET'){
+        //     console.log(`invalidating cashe: ${req.method} ${req.url}`);
+        //     this.casheService.invalidateUrl(req.urlWithParams);
+        //     return next.handle(req);
+        // }
 
         // attempt to retreive a cashed response
         const cashedResponse: HttpResponse<any> = this.casheService.get(req.urlWithParams);
 
         // return cashed reaponse
         if (cashedResponse) {
-            console.log('Returning cashed response: ${cashedResponse.urlWithParams}');
+            // console.log(`Returning cashed response: ${cashedResponse.url}`);
             console.log(req);
             console.log(cashedResponse);
             return of(cashedResponse);
@@ -35,7 +35,7 @@ import { tap } from 'rxjs/Operators';
         .pipe(
             tap(event => {
                 if (event instanceof HttpResponse) {
-                    console.log('Adding item to cashe ${req.urlWithParams}');
+                    // console.log(`Adding item to cashe ${req.urlWithParams}`);
                     console.log(req);
                     this.casheService.put(req.urlWithParams, event);
                 }
