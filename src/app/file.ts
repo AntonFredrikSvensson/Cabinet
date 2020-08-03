@@ -6,5 +6,8 @@ export interface File{
     last_modified?: string; // datetime?
     id: string;
     folderNavigationParameter?: string;
+    previewLink?: string;
+    viewLink?: string;
+    downloadLink?: string;
     storageProvider: string;
 }

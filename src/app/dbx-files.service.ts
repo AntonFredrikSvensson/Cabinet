@@ -38,6 +38,7 @@ export class DbxFilesService {
   }
   dbxEntriesToFiles(entries) {
     entries.forEach(element => {
+      console.log(element);
       const dbxFile: File = {
         type: element['.tag'],
         name: element.name,
@@ -51,7 +52,9 @@ export class DbxFilesService {
         dbxFile.type = 'Folder';
         dbxFile.folderNavigationParameter = 'dbx:' + element.path_display;
       } else {
+        console.log(dbxFile);
         dbxFile.size = element.size;
+        dbxFile.viewLink = 'https://www.dropbox.com/home/' + element.path_lower;
       }
 
 

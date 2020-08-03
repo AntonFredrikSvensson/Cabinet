@@ -25,8 +25,8 @@ import { tap } from 'rxjs/Operators';
         // return cashed reaponse
         if (cashedResponse) {
             // console.log(`Returning cashed response: ${cashedResponse.url}`);
-            console.log(req);
-            console.log(cashedResponse);
+            // console.log(req);
+            // console.log(cashedResponse);
             return of(cashedResponse);
         }
 
@@ -36,7 +36,7 @@ import { tap } from 'rxjs/Operators';
             tap(event => {
                 if (event instanceof HttpResponse) {
                     // console.log(`Adding item to cashe ${req.urlWithParams}`);
-                    console.log(req);
+                    // console.log(req);
                     this.casheService.put(req.urlWithParams, event);
                 }
             })
