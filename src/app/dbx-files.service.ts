@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subscription, Subject } from 'rxjs';
 import { DbxAuthService } from './dbx-auth.service';
@@ -16,7 +17,7 @@ export class DbxFilesService {
 
   constructor(
     private dbxAuthService: DbxAuthService,
-    // private http: HttpClient,
+    private http: HttpClient,
   ) {
     this.dbxSubscription = this.dbxAuthService
       .getAuth()
@@ -36,13 +37,14 @@ export class DbxFilesService {
         this.dbxEntriesToFiles(entries);
       });
   }
+
   dbxEntriesToFiles(entries) {
     entries.forEach(element => {
-      console.log(element);
+      // console.log(element);
       const dbxFile: File = {
         type: element['.tag'],
         name: element.name,
-        path: element.path_display,
+        path: element.path_lower,
         last_modified: element.server_modified,
         id: element.id,
         storageProvider: 'Dropbox',
@@ -52,13 +54,32 @@ export class DbxFilesService {
         dbxFile.type = 'Folder';
         dbxFile.folderNavigationParameter = 'dbx:' + element.path_display;
       } else {
-        console.log(dbxFile);
+        // console.log(dbxFile);
         dbxFile.size = element.size;
-        dbxFile.viewLink = 'https://www.dropbox.com/home/' + element.path_lower;
+        dbxFile.viewLink = 'https://www.dropbox.com/home' + element.path_lower;
       }
-
 
       this.dbxFileStream.next(dbxFile);
     });
+  }
+
+  downloadFile(path: string) {
+    const reqHeader = new HttpHeaders({
+      authorization: ' Bearer ' + this.dbxAuth.accessToken,
+      'Dropbox-API-Arg': `{\"path\": \"${path}"}`
+    });
+    // console.log(reqHeader);
+    // const reqParams = new HttpParams().set('path', path);
+    // console.log(reqParams);
+    this.http.post('https://content.dropboxapi.com/2/files/download',
+      '',
+      { headers: reqHeader,
+      responseType: 'blob'}
+    )
+      .subscribe(fileDownload => {
+        console.log('---DBX fileservice: download DBX file---');
+        // JSON.stringify(fileDownload);
+        console.log(fileDownload);
+      });
   }
 }

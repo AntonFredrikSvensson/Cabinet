@@ -28,9 +28,15 @@
           <ng-template *ngIf="file.type === 'file';then thenFileBlock; else elseFileBlock"></ng-template>
           <ng-template #thenFileBlock>
             <td>
-              <!-- <a *ngIf="(file.previewLink) !==undefined" href="{{file.previewLink}}" target="blank">View, </a> -->
               <a *ngIf="(file.viewLink) !==undefined" href="{{file.viewLink}}" target="blank">View, </a>
-              <a *ngIf="(file.downloadLink) !==undefined" href="{{file.downloadLink}}" target="blank">Download</a>
+              <ng-template *ngIf="file.storageProvider === 'Dropbox'; then dbxBlock else otherProviderBlock">
+              </ng-template>
+              <ng-template #dbxBlock>
+                <a (click)="downloadDbxFile(file.path)" href="#"> Download</a>
+              </ng-template>
+              <ng-template #otherProviderBlock>
+                <a *ngIf="(file.downloadLink) !==undefined" href="{{file.downloadLink}}" target="blank"> Download</a>
+              </ng-template>
             </td>
           </ng-template>
           <ng-template #elseFileBlock>
