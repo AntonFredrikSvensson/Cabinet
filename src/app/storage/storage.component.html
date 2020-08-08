@@ -6,6 +6,7 @@
         <tr>
           <th scope="col">Type</th>
           <th scope="col">File Name</th>
+          <th scope="col">Action</th>
           <th scope="col">File Size</th>
           <th scope="col">Last modified</th>
           <th scope="col">Storage Provider</th>
@@ -24,6 +25,22 @@
             <td>{{file.type}}</td>
           </ng-template>
           <td>{{file.name}}</td>
+          <ng-template *ngIf="file.type === 'file';then thenFileBlock; else elseFileBlock"></ng-template>
+          <ng-template #thenFileBlock>
+            <td>
+              <a *ngIf="(file.viewLink) !==undefined" href="{{file.viewLink}}" target="blank">View, </a>
+              <ng-template *ngIf="file.storageProvider === 'Dropbox'; then dbxBlock else otherProviderBlock">
+              </ng-template>
+              <ng-template #dbxBlock>
+                <a (click)="downloadDbxFile(file.path, file.name)" class="dbx-download"> Download</a>
+              </ng-template>
+              <ng-template #otherProviderBlock>
+                <a *ngIf="(file.downloadLink) !==undefined" href="{{file.downloadLink}}" target="blank"> Download</a>
+              </ng-template>
+            </td>
+          </ng-template>
+          <ng-template #elseFileBlock>
+          </ng-template>
           <td>{{file.size}}</td>
           <td>{{file.last_modified}}</td>
           <td>{{file.storageProvider}}</td>

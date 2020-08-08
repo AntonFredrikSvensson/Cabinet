@@ -12,6 +12,12 @@ import { tap } from 'rxjs/Operators';
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
 
+        // fix cashe for dowload files
+        if (req.url === 'https://content.dropboxapi.com/2/files/download'){
+            console.log('downloading file, cashe not set up');
+            return next.handle(req);
+        }
+
         // pass along non GET requests and invalidate cashe for these urls
         // if (req.method !== 'GET'){
         //     console.log(`invalidating cashe: ${req.method} ${req.url}`);
@@ -24,7 +30,7 @@ import { tap } from 'rxjs/Operators';
 
         // return cashed reaponse
         if (cashedResponse) {
-            // console.log(`Returning cashed response: ${cashedResponse.url}`);
+            console.log(`Returning cashed response: ${cashedResponse.url}`);
             console.log(req);
             console.log(cashedResponse);
             return of(cashedResponse);
@@ -35,7 +41,7 @@ import { tap } from 'rxjs/Operators';
         .pipe(
             tap(event => {
                 if (event instanceof HttpResponse) {
-                    // console.log(`Adding item to cashe ${req.urlWithParams}`);
+                    console.log(`Adding item to cashe ${req.urlWithParams}`);
                     console.log(req);
                     this.casheService.put(req.urlWithParams, event);
                 }

@@ -76,6 +76,7 @@ export class GdrFilesService {
     //   this.getSingleGdrFile(FileElement.id);
     // });
     entries.forEach(element => {
+      // console.log(element);
       const gdrFile: File = {
         type: '',
         name: element.title,
@@ -90,6 +91,9 @@ export class GdrFilesService {
       } else {
         gdrFile.size = element.fileSize;
         gdrFile.type = 'file';
+        gdrFile.previewLink = (element.embedLink) ? element.embedLink : undefined;
+        gdrFile.viewLink = (element.alternateLink) ? element.alternateLink : undefined;
+        gdrFile.downloadLink = (element.webContentLink) ? element.webContentLink : undefined;
       }
       // console.log(gdrFile);
       this.gdrFileStream.next(gdrFile);

@@ -101,4 +101,8 @@ export class FilesService {
     this.filesArray = [];
     this.filesArrayStream.next(this.filesArray);
   }
+
+  downloadDbxFile(path: string, fileName: string){
+    this.dbxFilesService.downloadFile(path, fileName);
+  }
 }
