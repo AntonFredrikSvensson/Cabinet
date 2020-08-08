@@ -102,7 +102,7 @@ export class FilesService {
     this.filesArrayStream.next(this.filesArray);
   }
 
-  downloadDbxFile(path: string){
-    this.dbxFilesService.downloadFile(path);
+  downloadDbxFile(path: string, fileName: string){
+    this.dbxFilesService.downloadFile(path, fileName);
   }
 }

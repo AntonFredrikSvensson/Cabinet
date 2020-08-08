@@ -1,5 +1,6 @@
 export interface File{
     type: string;
+    // fileType?: string;
     name: string;
     path?: string;
     size?: number;

@@ -5,6 +5,7 @@ import { DbxAuthService } from './dbx-auth.service';
 import { AuthObj } from './auth';
 import { Dropbox } from 'dropbox';
 import { File } from './file';
+import { FileSaver, saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class DbxFilesService {
   constructor(
     private dbxAuthService: DbxAuthService,
     private http: HttpClient,
+    // private filesaver: FileSaver,
   ) {
     this.dbxSubscription = this.dbxAuthService
       .getAuth()
@@ -57,13 +59,16 @@ export class DbxFilesService {
         // console.log(dbxFile);
         dbxFile.size = element.size;
         dbxFile.viewLink = 'https://www.dropbox.com/home' + element.path_lower;
+        // dbxFile.fileType = element.path_lower.split('.')[1];
       }
 
       this.dbxFileStream.next(dbxFile);
     });
   }
 
-  downloadFile(path: string) {
+  downloadFile(path: string, fileName: string) {
+    console.log(fileName);
+    console.log(path);
     const reqHeader = new HttpHeaders({
       authorization: ' Bearer ' + this.dbxAuth.accessToken,
       'Dropbox-API-Arg': `{\"path\": \"${path}"}`
@@ -78,8 +83,8 @@ export class DbxFilesService {
     )
       .subscribe(fileDownload => {
         console.log('---DBX fileservice: download DBX file---');
-        // JSON.stringify(fileDownload);
-        console.log(fileDownload);
+        // console.log(fileDownload);
+        saveAs(fileDownload, fileName);
       });
   }
 }

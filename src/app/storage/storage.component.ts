@@ -103,10 +103,10 @@ export class StorageComponent implements OnInit, OnDestroy {
     this.clearFilesArray();
     this.breadCrumbService.addBreadCrumb(folderName, folderLink);
   }
-  downloadDbxFile(path: any){
+  downloadDbxFile(path: string, fileName: string){
     // console.log('---Storage component: download DBX file---');
     // console.log(path);
-    this.filesService.downloadDbxFile(path);
+    this.filesService.downloadDbxFile(path, fileName);
   }
 
   ngOnDestroy(): void {

@@ -32,7 +32,7 @@
               <ng-template *ngIf="file.storageProvider === 'Dropbox'; then dbxBlock else otherProviderBlock">
               </ng-template>
               <ng-template #dbxBlock>
-                <a (click)="downloadDbxFile(file.path)" href="#"> Download</a>
+                <a (click)="downloadDbxFile(file.path, file.name)" class="dbx-download"> Download</a>
               </ng-template>
               <ng-template #otherProviderBlock>
                 <a *ngIf="(file.downloadLink) !==undefined" href="{{file.downloadLink}}" target="blank"> Download</a>
